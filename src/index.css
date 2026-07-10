@@ -310,7 +310,7 @@ a  { color: var(--navy-mid); text-decoration: none; }
   padding: 80px 0 60px;
   overflow: hidden;
   position: relative;
-  background: url('/anasayfa/maxresdefault-3.jpg') center/cover no-repeat;
+  background: url('/anasayfa/study-in-the-uk-boarding-school-ua-yp.jpg.avif') center/cover no-repeat;
 }
 .hero::before {
   content: '';
@@ -457,6 +457,15 @@ a  { color: var(--navy-mid); text-decoration: none; }
   background: var(--bg-white);
 }
 .form-input::placeholder { color: var(--text-muted); }
+.form-select {
+  appearance: none;
+  -webkit-appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2.5'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
 .form-divider {
   height: 1px;
   background: var(--border-light);
@@ -1544,7 +1553,7 @@ a  { color: var(--navy-mid); text-decoration: none; }
 /* ── Parallax Strip ───────────────────────────── */
 .parallax-strip {
   height: 190px;
-  background: url('/anasayfa/maxresdefault-3.jpg') center/cover fixed;
+  background: url('/anasayfa/study-in-the-uk-boarding-school-ua-yp.jpg.avif') center/cover fixed;
   position: relative;
   overflow: hidden;
   margin-top: 80px;

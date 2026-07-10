@@ -159,7 +159,7 @@ function Nav() {
 /* ─── Hero / Form ─────────────────────────────────── */
 function HeroSection({ onSubmit }) {
   const [form, setForm] = useState({
-    parentFirst: '', parentLast: '', studentFirst: '', studentLast: ''
+    parentFirst: '', parentLast: '', studentFirst: '', studentLast: '', campus: ''
   })
   const [errors, setErrors] = useState({})
 
@@ -175,6 +175,7 @@ function HeroSection({ onSubmit }) {
     if (!form.parentLast.trim())    errs.parentLast    = 'Required'
     if (!form.studentFirst.trim())  errs.studentFirst  = 'Required'
     if (!form.studentLast.trim())   errs.studentLast   = 'Required'
+    if (!form.campus)               errs.campus        = 'Required'
     return errs
   }
 
@@ -269,6 +270,25 @@ function HeroSection({ onSubmit }) {
               </div>
             </div>
 
+            <div className="form-divider" />
+            <div className="form-section-label">Campus</div>
+            <div className="form-group">
+              <label className="form-label">Select Campus</label>
+              <select
+                className="form-input form-select"
+                name="campus"
+                value={form.campus}
+                onChange={handleChange}
+                style={errors.campus ? { borderColor: '#E53E3E' } : {}}
+              >
+                <option value="">— Select campus —</option>
+                <option value="Zekeriyaköy">Zekeriyaköy</option>
+                <option value="Bahçeşehir">Bahçeşehir</option>
+                <option value="Çamlıca Hill">Çamlıca Hill</option>
+              </select>
+              {errors.campus && <span style={{ fontSize: 11, color: '#E53E3E' }}>{errors.campus}</span>}
+            </div>
+
             <button type="submit" className="btn-primary">
               Continue to Class Selection
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
@@ -301,6 +321,15 @@ function StudentBar({ formData, onEdit }) {
           <div>
             <div className="student-bar-chip-label">Student</div>
             <div>{formData.studentFirst} {formData.studentLast}</div>
+          </div>
+        </div>
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ color: 'var(--text-muted)', flexShrink: 0 }}>
+          <path d="M5 12h14"/>
+        </svg>
+        <div className="student-bar-chip">
+          <div>
+            <div className="student-bar-chip-label">Campus</div>
+            <div>{formData.campus}</div>
           </div>
         </div>
         <button className="student-bar-edit" onClick={onEdit}>Edit Details</button>
@@ -540,15 +569,15 @@ function PackDetail({ packId, formData, onBack }) {
               <div className="pack-payment-grid">
                 <div className="pack-payment-field">
                   <span className="pack-payment-label">Account Holder</span>
-                  <span className="pack-payment-value">ENG Publish Ltd.</span>
+                  <span className="pack-payment-value">Eng eğitim hizmetleri ticaret limited şirketi</span>
                 </div>
                 <div className="pack-payment-field">
                   <span className="pack-payment-label">Bank</span>
-                  <span className="pack-payment-value">[Bank Name]</span>
+                  <span className="pack-payment-value">Vakıfbank</span>
                 </div>
                 <div className="pack-payment-field">
                   <span className="pack-payment-label">IBAN</span>
-                  <span className="pack-payment-value">TR__ ____ ____ ____ ____</span>
+                  <span className="pack-payment-value">TR84 0001 5001 5800 7390 9344 79</span>
                 </div>
                 <div className="pack-payment-field">
                   <span className="pack-payment-label">Payment Reference</span>
@@ -641,15 +670,15 @@ function CartPanel({ cart, formData, onRemove, onClose }) {
               <div className="payment-row">
                 <div className="payment-field">
                   <span className="payment-field-label">Bank Name</span>
-                  <span className="payment-field-value">[Bank Name Placeholder]</span>
+                  <span className="payment-field-value">Vakıfbank</span>
                 </div>
                 <div className="payment-field">
                   <span className="payment-field-label">Account Holder</span>
-                  <span className="payment-field-value">ENG Publish Ltd.</span>
+                  <span className="payment-field-value">Eng eğitim hizmetleri ticaret limited şirketi</span>
                 </div>
                 <div className="payment-field">
                   <span className="payment-field-label">IBAN</span>
-                  <span className="payment-field-value">TR__ ____ ____ ____ ____ ____ __</span>
+                  <span className="payment-field-value">TR84 0001 5001 5800 7390 9344 79</span>
                 </div>
                 <div className="payment-field">
                   <span className="payment-field-label">Reference</span>
@@ -684,8 +713,7 @@ function Footer() {
         <div className="footer-brand">
           <div className="footer-logo-text">ENG Publish</div>
           <p className="footer-desc">
-            Official provider of Cambridge International Curriculum resource packs for BIS Schools.
-            Supporting academic excellence since our founding.
+            A trusted global provider of International Curriculum resource packs. Proudly serving the world's leading schools.
           </p>
           <div className="footer-contact-list">
             <a href="mailto:info@bis.k12.tr" className="footer-contact-link">info@bis.k12.tr</a>
@@ -709,15 +737,15 @@ function Footer() {
           <div className="footer-payment-box">
             <div className="footer-payment-row">
               <span className="footer-payment-label">Account Holder</span>
-              <span className="footer-payment-value">ENG Publish Ltd.</span>
+              <span className="footer-payment-value">Eng eğitim hizmetleri ticaret limited şirketi</span>
             </div>
             <div className="footer-payment-row">
               <span className="footer-payment-label">Bank</span>
-              <span className="footer-payment-value">[Bank Name]</span>
+              <span className="footer-payment-value">Vakıfbank</span>
             </div>
             <div className="footer-payment-row">
               <span className="footer-payment-label">IBAN</span>
-              <span className="footer-payment-value">TR__ ____ ____ ____ ____</span>
+              <span className="footer-payment-value">TR84 0001 5001 5800 7390 9344 79</span>
             </div>
 
           </div>
