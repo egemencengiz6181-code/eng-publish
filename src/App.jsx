@@ -23,13 +23,14 @@ function totalResourceCount(pack) {
 }
 /* ─── Logolar 2 Strip ───────────────────────────────── */
 const logolar2List = [
-  { src: '/logolar 2/cambridge-active.webp', alt: 'Cambridge Assessment' },
-  { src: '/logolar 2/ib-active.webp', alt: 'IB' },
-  { src: '/logolar 2/cobis-active.webp', alt: 'COBIS' },
-  { src: '/logolar 2/cis-active.webp', alt: 'CIS' },
-  { src: '/logolar 2/collegeboard-active.webp', alt: 'College Board' },
-  { src: '/logolar 2/dofe-active.webp', alt: "Duke of Edinburgh's Award" },
-  { src: '/logolar 2/msa-active.webp', alt: 'MSA' },
+  { src: '/logolar 2/cupcolorlogo.png', alt: 'Cambridge University Press' },
+  { src: '/logolar 2/Oxford_University_Press_logo.svg.png', alt: 'Oxford University Press' },
+  { src: '/logolar 2/Pearson_logo.svg.png', alt: 'Pearson' },
+  { src: '/logolar 2/64f54c9208460c591c315ccb_logo-mc-graw-hill.png', alt: 'McGraw-Hill' },
+  { src: '/logolar 2/Harvard_univ_press.svg.png', alt: 'Harvard University Press' },
+  { src: '/logolar 2/PRH-GlobalCorporate-Logo-RGB.png', alt: 'Penguin Random House' },
+  { src: '/logolar 2/66f162ae34ce3b4fd720c7f9_BBC (1).png', alt: 'BBC' },
+  { src: '/logolar 2/nyt-logo.png', alt: 'New York Times' },
 ]
 
 function Logolar2Strip() {
@@ -282,9 +283,10 @@ function HeroSection({ onSubmit }) {
                 style={errors.campus ? { borderColor: '#E53E3E' } : {}}
               >
                 <option value="">— Select campus —</option>
-                <option value="Zekeriyaköy">Zekeriyaköy</option>
-                <option value="Bahçeşehir">Bahçeşehir</option>
-                <option value="Çamlıca Hill">Çamlıca Hill</option>
+                <option value="Bahçeşehir Garden Campus">Bahçeşehir Garden Campus</option>
+                <option value="Çamlıca Hill Campus">Çamlıca Hill Campus</option>
+                <option value="Zekeriyaköy Hill Side Campus">Zekeriyaköy Hill Side Campus</option>
+                <option value="Alkent Village Campus">Alkent Village Campus</option>
               </select>
               {errors.campus && <span style={{ fontSize: 11, color: '#E53E3E' }}>{errors.campus}</span>}
             </div>
@@ -493,8 +495,131 @@ const genelImages = [
   '/genel/e3bec6f3-dbcb-45d6-b8c9-2a7f0e103513.jpg',
 ]
 
-/* ─── Pack Detail ───────────────────────────────────── */
+/* ─── Payment Modal ─────────────────────────────────────────── */
+function PaymentModal({ pack, formData, onClose }) {
+  const [contact, setContact] = useState({ email: '', phone: '', note: '' })
+  const [errors, setErrors] = useState({})
+  const [submitted, setSubmitted] = useState(false)
+
+  function handleChange(e) {
+    const { name, value } = e.target
+    setContact(c => ({ ...c, [name]: value }))
+    if (errors[name]) setErrors(er => ({ ...er, [name]: '' }))
+  }
+
+  function validate() {
+    const errs = {}
+    if (!contact.email.trim()) errs.email = 'Required'
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contact.email)) errs.email = 'Please enter a valid email'
+    if (!contact.phone.trim()) errs.phone = 'Required'
+    return errs
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    const errs = validate()
+    if (Object.keys(errs).length) { setErrors(errs); return }
+    setSubmitted(true)
+  }
+
+  return (
+    <>
+      <div className="modal-overlay" onClick={submitted ? onClose : undefined} />
+      <div className="modal" role="dialog" aria-modal="true">
+        {submitted ? (
+          <div className="modal-success">
+            <div className="modal-success-check">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h2 className="modal-success-title">Thank You!</h2>
+            <p className="modal-success-desc">Your payment is under review. We will confirm your order shortly.</p>
+            <p className="modal-success-tr">Ödemeniz değerlendirmede — teşekkür ederiz.</p>
+            <button className="btn-primary" onClick={onClose} style={{ marginTop: 20 }}>Close</button>
+          </div>
+        ) : (
+          <>
+            <div className="modal-header">
+              <h2 className="modal-title">{pack.name} — Order Details</h2>
+              <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
+            </div>
+
+            <div className="modal-payment-box">
+              <div className="modal-payment-row">
+                <span className="modal-payment-label">Account Holder</span>
+                <span className="modal-payment-value">Eng eğitim hizmetleri ticaret limited şirketi</span>
+              </div>
+              <div className="modal-payment-row">
+                <span className="modal-payment-label">Bank</span>
+                <span className="modal-payment-value">Vakıfbank</span>
+              </div>
+              <div className="modal-payment-row">
+                <span className="modal-payment-label">IBAN</span>
+                <span className="modal-payment-value">TR84 0001 5001 5800 7390 9344 79</span>
+              </div>
+              <div className="modal-payment-row">
+                <span className="modal-payment-label">Payment Reference</span>
+                <span className="modal-payment-value">{formData.studentFirst} {formData.studentLast}</span>
+              </div>
+            </div>
+
+            <p className="modal-desc">Transfer the total amount using your child's full name as the reference, then submit your contact details below.</p>
+
+            <form className="modal-contact-form" onSubmit={handleSubmit} noValidate>
+              <div className="form-group">
+                <label className="form-label">Email Address</label>
+                <input
+                  className="form-input"
+                  type="email"
+                  name="email"
+                  value={contact.email}
+                  onChange={handleChange}
+                  placeholder="your@email.com"
+                  style={errors.email ? { borderColor: '#E53E3E' } : {}}
+                />
+                {errors.email && <span style={{ fontSize: 11, color: '#E53E3E' }}>{errors.email}</span>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">Phone Number</label>
+                <input
+                  className="form-input"
+                  type="tel"
+                  name="phone"
+                  value={contact.phone}
+                  onChange={handleChange}
+                  placeholder="+90 5xx xxx xx xx"
+                  style={errors.phone ? { borderColor: '#E53E3E' } : {}}
+                />
+                {errors.phone && <span style={{ fontSize: 11, color: '#E53E3E' }}>{errors.phone}</span>}
+              </div>
+              <div className="form-group">
+                <label className="form-label">
+                  Note <span className="label-optional">(optional)</span>
+                </label>
+                <textarea
+                  className="form-input"
+                  name="note"
+                  value={contact.note}
+                  onChange={handleChange}
+                  placeholder="Any additional notes or questions..."
+                  rows={3}
+                  style={{ resize: 'vertical' }}
+                />
+              </div>
+              <button type="submit" className="btn-primary modal-submit">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                I've Made the Payment — Submit Order
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </>
+  )
+}
+
+/* ─── Pack Detail ─────────────────────────────────────────── */
 function PackDetail({ packId, formData, onBack }) {
+  const [showModal, setShowModal] = useState(false)
   const pack = packs.find(p => p.id === packId)
   if (!pack) return null
 
@@ -535,6 +660,13 @@ function PackDetail({ packId, formData, onBack }) {
                   <div className="pack-header-sub">{pack.subtitle} · {count} resources across {pack.groups.length} categories</div>
                 </div>
               </div>
+              <button className="btn-buynow" onClick={() => setShowModal(true)}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                  <line x1="1" y1="10" x2="23" y2="10"/>
+                </svg>
+                Buy Now
+              </button>
             </div>
 
             {/* MFL Note */}
@@ -597,7 +729,7 @@ function PackDetail({ packId, formData, onBack }) {
           </div>
         </div>
       </div>
-    </section>
+      {showModal && <PaymentModal pack={pack} formData={formData} onClose={() => setShowModal(false)} />}    </section>
   )
 }
 

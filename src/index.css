@@ -1465,13 +1465,26 @@ a  { color: var(--navy-mid); text-decoration: none; }
   gap: 36px;
   flex-wrap: wrap;
 }
-.logolar2-item { display: flex; align-items: center; }
+@media (max-width: 768px) {
+  .logolar2-strip { overflow: hidden; }
+  .logolar2-inner {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    justify-content: flex-start;
+    padding: 0 16px;
+    scrollbar-width: none;
+    gap: 24px;
+  }
+  .logolar2-inner::-webkit-scrollbar { display: none; }
+}
+.logolar2-item { display: flex; align-items: center; flex-shrink: 0; }
 .logolar2-item img {
-  height: 26px;
+  height: 28px;
   width: auto;
-  max-width: 100px;
+  max-width: 120px;
   object-fit: contain;
-  filter: grayscale(1) opacity(0.22);
+  filter: grayscale(0.5) opacity(0.65);
   transition: filter .3s ease;
 }
 .logolar2-item img:hover {
@@ -1672,4 +1685,153 @@ a  { color: var(--navy-mid); text-decoration: none; }
   font-size: 14px;
   color: #276749;
   font-weight: 500;
+}
+
+/* ── Buy Now Button ──────────────────────────── */
+.btn-buynow {
+  background: var(--gold);
+  color: #fff;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: .02em;
+  padding: 12px 24px;
+  border-radius: var(--r-md);
+  border: none;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: background .15s, transform .1s, box-shadow .15s;
+  white-space: nowrap;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(184,152,60,.3);
+}
+.btn-buynow:hover {
+  background: #a07830;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(184,152,60,.4);
+}
+@media (max-width: 640px) {
+  .btn-buynow { width: 100%; justify-content: center; margin-top: 12px; }
+}
+
+/* ── Payment Modal ───────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.55);
+  z-index: 200;
+  backdrop-filter: blur(2px);
+}
+.modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: var(--bg-white);
+  border-radius: var(--r-xl);
+  padding: 32px;
+  width: min(520px, 95vw);
+  max-height: 90vh;
+  overflow-y: auto;
+  z-index: 201;
+  box-shadow: 0 24px 64px rgba(0,0,0,.22);
+}
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+.modal-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0;
+}
+.modal-close {
+  background: none;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+  color: var(--text-muted);
+  line-height: 1;
+  padding: 0 2px;
+  transition: color .15s;
+  flex-shrink: 0;
+}
+.modal-close:hover { color: var(--text); }
+.modal-payment-box {
+  background: var(--bg-muted);
+  border-radius: var(--r-md);
+  padding: 12px 16px;
+  margin-bottom: 16px;
+  border: 1px solid var(--border-light);
+}
+.modal-payment-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 12px;
+  padding: 7px 0;
+  border-bottom: 1px solid var(--border-light);
+}
+.modal-payment-row:last-child { border-bottom: none; }
+.modal-payment-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+.modal-payment-value {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--navy);
+  text-align: right;
+}
+.modal-desc {
+  font-size: 13px;
+  color: var(--text-sec);
+  margin-bottom: 20px;
+  line-height: 1.5;
+}
+.modal-contact-form .form-group { margin-bottom: 14px; }
+.modal-submit { width: 100%; justify-content: center; }
+.label-optional { font-weight: 400; opacity: .6; font-size: 12px; }
+.modal-success {
+  text-align: center;
+  padding: 24px 8px;
+}
+.modal-success-check {
+  width: 60px;
+  height: 60px;
+  background: rgba(27,61,42,.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  color: var(--navy);
+}
+.modal-success-title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--navy);
+  margin: 0 0 10px;
+}
+.modal-success-desc {
+  font-size: 15px;
+  color: var(--text-sec);
+  margin: 0 0 8px;
+  line-height: 1.5;
+}
+.modal-success-tr {
+  font-size: 14px;
+  color: var(--navy-soft);
+  font-weight: 600;
+  margin: 0 0 4px;
 }
