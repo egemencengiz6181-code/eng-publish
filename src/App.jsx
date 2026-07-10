@@ -495,6 +495,98 @@ const genelImages = [
   '/genel/e3bec6f3-dbcb-45d6-b8c9-2a7f0e103513.jpg',
 ]
 
+/* ─── Letter from School Management ─────────────────────────── */
+function LetterSection() {
+  const [open, setOpen] = useState(false)
+  return (
+    <div className="letter-section fade-up">
+      <button className="letter-toggle" onClick={() => setOpen(o => !o)}>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
+        </svg>
+        <span>Letter from School Management — 2026–2027 Academic Year</span>
+        <svg className={`letter-chevron${open ? ' open' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+          <path d="M6 9l6 6 6-6"/>
+        </svg>
+      </button>
+      {open && (
+        <div className="letter-body">
+          <p className="letter-greeting"><strong>Dear Parents,</strong></p>
+          <p>As we prepare for the 2026–2027 academic year, we would like to inform you about the supplementary resources that will be used to support our pupils' academic development in the most effective way.</p>
+          <p>The resources used at our school consist of publications that have been carefully selected to suit our students' ages and levels, and are aligned with the learning outcomes set out by the Ministry of National Education and our Cambridge International Curriculum accreditation. These resources aim not only to enhance academic achievement but also to develop skills in reading comprehension, problem-solving, analysis, interpretation and the habit of regular study.</p>
+          <p>Throughout the year, our teachers coordinate their lesson planning, homework assignments, assessment processes, and revision sessions in line with these resources. Therefore, ensuring that these resources are provided is of the utmost importance to enable our students to fully follow in-class activities and to maintain the integrity of classroom learning.</p>
+          <p>During the resource selection process:</p>
+          <ul className="letter-list">
+            <li>content quality</li>
+            <li>alignment with the current curriculum</li>
+            <li>suitability for the students' level</li>
+            <li>next-generation question formats</li>
+            <li>digital support materials, and</li>
+            <li>assessment and evaluation adequacy are taken into account.</li>
+          </ul>
+          <p>Our aim is to instil a regular study routine in our students, fostering individuals who learn how to learn and are academically strong. In this process, the support and cooperation of you, our valued parents, are of great importance to us.</p>
+          <p>We thank you for your understanding and contributions, and wish you a healthy and successful academic year.</p>
+          <p className="letter-sign"><em>Kind regards,<br />School Management</em></p>
+        </div>
+      )}
+    </div>
+  )
+}
+
+/* ─── Class Pack Information ─────────────────────────────────── */
+const classPackItems = [
+  {
+    title: 'Coding and Algorithm Pack / Bee-Bot Robot',
+    desc: 'At our school, we offer hands-on coding and problem-solving activities designed to help students develop their logical thinking, sequencing and basic robotics skills through interactive Bee-Bot robot applications.',
+  },
+  {
+    title: 'Individual Development Progress (IDP) Pack',
+    desc: "Throughout the academic year, a comprehensive student progress monitoring system is in place to track pupils' academic, social, emotional and developmental progress within the framework of the Cambridge Programme. Pupils' progress is assessed four times a year, and the results are provided to them in the form of report cards.",
+  },
+  {
+    title: 'English Formative and Summative Assessment Pack',
+    desc: "A structured assessment package, which includes ongoing formative assessments and summative assessments at the end of each unit, is provided to measure students' English language development and learning outcomes; Cambridge assessments are administered three times a year—at the beginning, middle, and end of the school year.",
+  },
+  {
+    title: 'Auditing Pack',
+    desc: 'It includes a structured documentation program designed to support academic monitoring, institutional audits, and evaluations of educational standards by both Cambridge authorities and BIS management.',
+  },
+  {
+    title: 'Cognitive Skills Assessment Pack',
+    desc: "It comprises a skills-based assessment programme and reporting system designed to evaluate students' reasoning, memory, attention, problem-solving and critical thinking skills.",
+  },
+]
+
+const turkishLessonsItem = {
+  title: 'Turkish Lessons Topic Assessment Test',
+  desc: "A structured assessment program designed to measure students' understanding and achievement in Turkish language topics. The test evaluates reading comprehension, grammar, vocabulary, writing skills, and topic-based learning outcomes while supporting academic progress monitoring and individualized student development.",
+}
+
+function ClassPackInfo({ packId }) {
+  const items = packId.startsWith('year-') ? [...classPackItems, turkishLessonsItem] : classPackItems
+  return (
+    <div className="class-pack-info fade-up">
+      <div className="class-pack-info-header">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0, marginTop: 2 }}>
+          <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
+        </svg>
+        <div>
+          <span className="class-pack-info-title">Information Regarding the Educational Content of BIS Schools</span>
+          <p className="class-pack-info-sub">The educational activities carried out for students throughout the year, in line with BIS Schools' distinctive teaching and learning practices and student development monitoring, are as follows.</p>
+        </div>
+      </div>
+      <div className="class-pack-info-items">
+        {items.map((item, i) => (
+          <div key={i} className="class-pack-info-item">
+            <div className="class-pack-info-item-title">{item.title}</div>
+            <div className="class-pack-info-item-desc">{item.desc}</div>
+          </div>
+        ))}
+      </div>
+    </div>
+  )
+}
+
 /* ─── Payment Modal ─────────────────────────────────────────── */
 function PaymentModal({ pack, formData, onClose }) {
   const [contact, setContact] = useState({ email: '', phone: '', note: '' })
@@ -669,6 +761,8 @@ function PackDetail({ packId, formData, onBack }) {
               </button>
             </div>
 
+            <LetterSection />
+
             {/* MFL Note */}
             {pack.note && (
               <div className="pack-note-box fade-up">
@@ -685,6 +779,8 @@ function PackDetail({ packId, formData, onBack }) {
             {pack.groups.map((group, i) => (
               <ResourceGroup key={i} group={group} index={i} />
             ))}
+
+            <ClassPackInfo packId={packId} />
 
             {/* Payment Details */}
             <div className="pack-payment-section fade-up">
