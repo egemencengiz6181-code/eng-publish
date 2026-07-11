@@ -106,10 +106,10 @@ function TopBar() {
       <div className="top-bar-left">
         <span>2026–2027 Academic Year</span>
         <span>ENG Publish — Official School Resource Packs</span>
-        <span>Cambridge International Curriculum</span>
+        <span>International Curriculum</span>
       </div>
       <div className="top-bar-right">
-        <a href="mailto:info@bis.k12.tr" className="top-bar-contact">info@bis.k12.tr</a>
+        <a href="mailto:info@engpublish.com" className="top-bar-contact">info@engpublish.com</a>
         <a href="tel:+908502598484" className="top-bar-contact">+90 850 259 84 84</a>
       </div>
     </div>
@@ -497,38 +497,32 @@ const genelImages = [
 
 /* ─── Letter from School Management ─────────────────────────── */
 function LetterSection() {
-  const [open, setOpen] = useState(false)
   return (
     <div className="letter-section fade-up">
-      <button className="letter-toggle" onClick={() => setOpen(o => !o)}>
+      <div className="letter-toggle" style={{ cursor: 'default' }}>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
           <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
         </svg>
         <span>Letter from School Management — 2026–2027 Academic Year</span>
-        <svg className={`letter-chevron${open ? ' open' : ''}`} width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
-          <path d="M6 9l6 6 6-6"/>
-        </svg>
-      </button>
-      {open && (
-        <div className="letter-body">
-          <p className="letter-greeting"><strong>Dear Parents,</strong></p>
-          <p>As we prepare for the 2026–2027 academic year, we would like to inform you about the supplementary resources that will be used to support our pupils' academic development in the most effective way.</p>
-          <p>The resources used at our school consist of publications that have been carefully selected to suit our students' ages and levels, and are aligned with the learning outcomes set out by the Ministry of National Education and our Cambridge International Curriculum accreditation. These resources aim not only to enhance academic achievement but also to develop skills in reading comprehension, problem-solving, analysis, interpretation and the habit of regular study.</p>
-          <p>Throughout the year, our teachers coordinate their lesson planning, homework assignments, assessment processes, and revision sessions in line with these resources. Therefore, ensuring that these resources are provided is of the utmost importance to enable our students to fully follow in-class activities and to maintain the integrity of classroom learning.</p>
-          <p>During the resource selection process:</p>
-          <ul className="letter-list">
-            <li>content quality</li>
-            <li>alignment with the current curriculum</li>
-            <li>suitability for the students' level</li>
-            <li>next-generation question formats</li>
-            <li>digital support materials, and</li>
-            <li>assessment and evaluation adequacy are taken into account.</li>
-          </ul>
-          <p>Our aim is to instil a regular study routine in our students, fostering individuals who learn how to learn and are academically strong. In this process, the support and cooperation of you, our valued parents, are of great importance to us.</p>
-          <p>We thank you for your understanding and contributions, and wish you a healthy and successful academic year.</p>
-          <p className="letter-sign"><em>Kind regards,<br />School Management</em></p>
-        </div>
-      )}
+      </div>
+      <div className="letter-body">
+        <p className="letter-greeting"><strong>Dear Parents,</strong></p>
+        <p>As we prepare for the 2026–2027 academic year, we would like to inform you about the supplementary resources that will be used to support our pupils' academic development in the most effective way.</p>
+        <p>The resources used at our school consist of publications that have been carefully selected to suit our students' ages and levels, and are aligned with the learning outcomes set out by the Ministry of National Education and our Cambridge International Curriculum accreditation. These resources aim not only to enhance academic achievement but also to develop skills in reading comprehension, problem-solving, analysis, interpretation and the habit of regular study.</p>
+        <p>Throughout the year, our teachers coordinate their lesson planning, homework assignments, assessment processes, and revision sessions in line with these resources. Therefore, ensuring that these resources are provided is of the utmost importance to enable our students to fully follow in-class activities and to maintain the integrity of classroom learning.</p>
+        <p>During the resource selection process:</p>
+        <ul className="letter-list">
+          <li>content quality</li>
+          <li>alignment with the current curriculum</li>
+          <li>suitability for the students' level</li>
+          <li>next-generation question formats</li>
+          <li>digital support materials, and</li>
+          <li>assessment and evaluation adequacy are taken into account.</li>
+        </ul>
+        <p>Our aim is to instil a regular study routine in our students, fostering individuals who learn how to learn and are academically strong. In this process, the support and cooperation of you, our valued parents, are of great importance to us.</p>
+        <p>We thank you for your understanding and contributions, and wish you a healthy and successful academic year.</p>
+        <p className="letter-sign"><em>Kind regards,<br />School Management</em></p>
+      </div>
     </div>
   )
 }
@@ -638,7 +632,7 @@ function PaymentModal({ pack, formData, onClose }) {
             <div className="modal-payment-box">
               <div className="modal-payment-row">
                 <span className="modal-payment-label">Account Holder</span>
-                <span className="modal-payment-value">Eng eğitim hizmetleri ticaret limited şirketi</span>
+                <span className="modal-payment-value">ENG Eğitim Hizmetleri Ticaret Limited Şirketi</span>
               </div>
               <div className="modal-payment-row">
                 <span className="modal-payment-label">Bank</span>
@@ -797,7 +791,7 @@ function PackDetail({ packId, formData, onBack }) {
               <div className="pack-payment-grid">
                 <div className="pack-payment-field">
                   <span className="pack-payment-label">Account Holder</span>
-                  <span className="pack-payment-value">Eng eğitim hizmetleri ticaret limited şirketi</span>
+                  <span className="pack-payment-value">ENG Eğitim Hizmetleri Ticaret Limited Şirketi</span>
                 </div>
                 <div className="pack-payment-field">
                   <span className="pack-payment-label">Bank</span>
@@ -814,7 +808,14 @@ function PackDetail({ packId, formData, onBack }) {
               </div>
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'center', marginTop: 24 }} className="fade-up">
+            <div style={{ display: 'flex', justifyContent: 'center', gap: 16, marginTop: 24, flexWrap: 'wrap' }} className="fade-up">
+              <button className="btn-buynow" onClick={() => setShowModal(true)}>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                  <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
+                  <line x1="1" y1="10" x2="23" y2="10"/>
+                </svg>
+                Buy Now
+              </button>
               <button className="btn-secondary" onClick={() => onBack('classes')}>
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                   <path d="M19 12H5M12 19l-7-7 7-7"/>
@@ -902,7 +903,7 @@ function CartPanel({ cart, formData, onRemove, onClose }) {
                 </div>
                 <div className="payment-field">
                   <span className="payment-field-label">Account Holder</span>
-                  <span className="payment-field-value">Eng eğitim hizmetleri ticaret limited şirketi</span>
+                  <span className="payment-field-value">ENG Eğitim Hizmetleri Ticaret Limited Şirketi</span>
                 </div>
                 <div className="payment-field">
                   <span className="payment-field-label">IBAN</span>
@@ -944,7 +945,7 @@ function Footer() {
             A trusted global provider of International Curriculum resource packs. Proudly serving the world's leading schools.
           </p>
           <div className="footer-contact-list">
-            <a href="mailto:info@bis.k12.tr" className="footer-contact-link">info@bis.k12.tr</a>
+            <a href="mailto:info@engpublish.com" className="footer-contact-link">info@engpublish.com</a>
             <a href="tel:+908502598484" className="footer-contact-link">+90 850 259 84 84</a>
           </div>
         </div>
@@ -960,24 +961,7 @@ function Footer() {
           </div>
         </div>
 
-        <div>
-          <div className="footer-col-title">Payment Details</div>
-          <div className="footer-payment-box">
-            <div className="footer-payment-row">
-              <span className="footer-payment-label">Account Holder</span>
-              <span className="footer-payment-value">Eng eğitim hizmetleri ticaret limited şirketi</span>
-            </div>
-            <div className="footer-payment-row">
-              <span className="footer-payment-label">Bank</span>
-              <span className="footer-payment-value">Vakıfbank</span>
-            </div>
-            <div className="footer-payment-row">
-              <span className="footer-payment-label">IBAN</span>
-              <span className="footer-payment-value">TR84 0001 5001 5800 7390 9344 79</span>
-            </div>
 
-          </div>
-        </div>
       </div>
 
       <div className="footer-bottom">
