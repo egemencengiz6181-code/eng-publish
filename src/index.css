@@ -1478,7 +1478,12 @@ a  { color: var(--navy-mid); text-decoration: none; }
   }
   .logolar2-inner::-webkit-scrollbar { display: none; }
 }
+/* hide duplicate logos on desktop; show only originals */
 .logolar2-item { display: flex; align-items: center; flex-shrink: 0; }
+.logolar2-item:nth-child(n+9) { display: none; }
+@media (max-width: 768px) {
+  .logolar2-item:nth-child(n+9) { display: flex; }
+}
 .logolar2-item img {
   height: 28px;
   width: auto;
@@ -1935,4 +1940,120 @@ a  { color: var(--navy-mid); text-decoration: none; }
   font-size: 13px;
   color: var(--text-sec);
   line-height: 1.55;
+}
+
+/* ── Language Switcher ───────────────────────── */
+.lang-switcher {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background: var(--bg-muted);
+  border-radius: 20px;
+  padding: 3px;
+}
+.lang-btn {
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--font-sans);
+  padding: 4px 10px;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: background .2s var(--ease), color .2s var(--ease);
+  letter-spacing: .03em;
+}
+.lang-btn:hover { color: var(--navy); }
+.lang-btn-active {
+  background: var(--navy);
+  color: #fff !important;
+}
+
+/* ── Pricing Box ─────────────────────────────── */
+.pricing-box {
+  background: var(--bg-muted);
+  border: 1px solid var(--border);
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  margin: 16px 0;
+}
+.pricing-box-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  color: var(--navy);
+}
+.pricing-box-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  text-transform: uppercase;
+  letter-spacing: .05em;
+}
+.pricing-box-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.pricing-box-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--bg-white);
+  border-radius: var(--r-sm);
+  border: 1px solid var(--border-light);
+}
+.pricing-box-row.pricing-current {
+  border-color: var(--navy-soft);
+  background: #f0faf3;
+}
+.pricing-month {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-sec);
+  min-width: 80px;
+}
+.pricing-amount {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy);
+  font-variant-numeric: tabular-nums;
+}
+.pricing-badge {
+  margin-left: auto;
+  background: var(--navy);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+}
+
+/* ── Logolar2 mobile auto-scroll ─────────────── */
+@keyframes logolar2Scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@media (max-width: 768px) {
+  .logolar2-strip { overflow: hidden; }
+  .logolar2-inner {
+    flex-wrap: nowrap;
+    width: max-content;
+    animation: logolar2Scroll 18s linear infinite;
+    padding: 0 16px;
+    gap: 32px;
+    justify-content: flex-start;
+  }
+  .logolar2-inner::-webkit-scrollbar { display: none; }
+  .logolar2-strip:hover .logolar2-inner { animation-play-state: paused; }
+}
+
+/* ── Hide year indicator on mobile ──────────── */
+@media (max-width: 768px) {
+  .year-indicator { display: none; }
 }
