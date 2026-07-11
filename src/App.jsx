@@ -170,7 +170,6 @@ function TopBar() {
       </div>
       <div className="top-bar-right">
         <a href="mailto:info@engpublish.com" className="top-bar-contact">info@engpublish.com</a>
-        <a href="tel:+908502598484" className="top-bar-contact">+90 850 259 84 84</a>
       </div>
     </div>
   )
@@ -726,7 +725,6 @@ function Footer() {
           <p className="footer-desc">{t.footerDesc}</p>
           <div className="footer-contact-list">
             <a href="mailto:info@engpublish.com" className="footer-contact-link">info@engpublish.com</a>
-            <a href="tel:+908502598484" className="footer-contact-link">+90 850 259 84 84</a>
           </div>
         </div>
         <div>
