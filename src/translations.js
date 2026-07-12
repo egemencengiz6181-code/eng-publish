@@ -186,7 +186,7 @@ export const translations = {
     selectCountry: 'Ülke Seçin',
     selectCountryOption: '— Ülke seçin —',
     countryRequired: 'Lütfen bir ülke seçin',
-    countryNotAvailable: 'Bu hizmet şu an yalnızca Türkiye'deki BIS Okulları için geçerlidir. Daha fazla bilgi için info@engpublish.com adresinden bizimle iletişime geçin.',
+    countryNotAvailable: "Bu hizmet şu an yalnızca Türkiye'deki BIS Okulları için geçerlidir. Daha fazla bilgi için info@engpublish.com adresinden bizimle iletişime geçin.",
     campus: 'Kampüs',
     selectCampus: 'Kampüs Seçin',
     selectCampusOption: '— Kampüs seçin —',
