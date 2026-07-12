@@ -320,18 +320,18 @@ function HeroSection({ onSubmit }) {
               <label className="form-label">{t.selectCountry}</label>
               <select className="form-input form-select" name="country" value={form.country} onChange={handleChange} style={errors.country || errors.countryNotAvailable ? { borderColor: '#E53E3E' } : {}}>
                 <option value="">{t.selectCountryOption}</option>
-                <option value="Türkiye">🇹🇷 Türkiye</option>
-                <option value="United Kingdom">🇬🇧 United Kingdom</option>
-                <option value="Germany">🇩🇪 Germany</option>
-                <option value="France">🇫🇷 France</option>
-                <option value="Netherlands">🇳🇱 Netherlands</option>
-                <option value="Sweden">🇸🇪 Sweden</option>
-                <option value="Switzerland">🇨🇭 Switzerland</option>
-                <option value="Norway">🇳🇴 Norway</option>
-                <option value="Denmark">🇩🇰 Denmark</option>
-                <option value="Finland">🇫🇮 Finland</option>
-                <option value="Austria">🇦🇹 Austria</option>
-                <option value="Belgium">🇧🇪 Belgium</option>
+                <option value="Türkiye">Türkiye</option>
+                <option value="United Kingdom">United Kingdom</option>
+                <option value="Germany">Germany</option>
+                <option value="France">France</option>
+                <option value="Netherlands">Netherlands</option>
+                <option value="Sweden">Sweden</option>
+                <option value="Switzerland">Switzerland</option>
+                <option value="Norway">Norway</option>
+                <option value="Denmark">Denmark</option>
+                <option value="Finland">Finland</option>
+                <option value="Austria">Austria</option>
+                <option value="Belgium">Belgium</option>
               </select>
               {errors.country && !errors.countryNotAvailable && <span style={{ fontSize: 11, color: '#E53E3E' }}>{errors.country}</span>}
               {errors.countryNotAvailable && (
