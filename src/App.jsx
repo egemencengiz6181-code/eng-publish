@@ -229,14 +229,23 @@ function Nav({ lang, setLang }) {
 function HeroSection({ onSubmit }) {
   const t = useLang()
   const [form, setForm] = useState({
-    parentFirst: '', parentLast: '', studentFirst: '', studentLast: '', campus: ''
+    parentFirst: '', parentLast: '', studentFirst: '', studentLast: '', country: '', campus: ''
   })
   const [errors, setErrors] = useState({})
 
+  const isTurkey = form.country === 'Türkiye'
+  const isOtherCountry = form.country && !isTurkey
+
   function handleChange(e) {
     const { name, value } = e.target
-    setForm(f => ({ ...f, [name]: value }))
+    setForm(f => {
+      const updated = { ...f, [name]: value }
+      // Reset campus when country changes away from Turkey
+      if (name === 'country' && value !== 'Türkiye') updated.campus = ''
+      return updated
+    })
     if (errors[name]) setErrors(ev => ({ ...ev, [name]: '' }))
+    if (name === 'country') setErrors(ev => ({ ...ev, country: '', campus: '', countryNotAvailable: '' }))
   }
 
   function validate() {
@@ -245,7 +254,9 @@ function HeroSection({ onSubmit }) {
     if (!form.parentLast.trim())    errs.parentLast    = t.required
     if (!form.studentFirst.trim())  errs.studentFirst  = t.required
     if (!form.studentLast.trim())   errs.studentLast   = t.required
-    if (!form.campus)               errs.campus        = t.required
+    if (!form.country)              errs.country       = t.countryRequired
+    if (isOtherCountry)             errs.countryNotAvailable = t.countryNotAvailable
+    if (isTurkey && !form.campus)   errs.campus        = t.required
     return errs
   }
 
@@ -304,18 +315,48 @@ function HeroSection({ onSubmit }) {
               </div>
             </div>
             <div className="form-divider" />
-            <div className="form-section-label">{t.campus}</div>
+            <div className="form-section-label">{t.country}</div>
             <div className="form-group">
-              <label className="form-label">{t.selectCampus}</label>
-              <select className="form-input form-select" name="campus" value={form.campus} onChange={handleChange} style={errors.campus ? { borderColor: '#E53E3E' } : {}}>
-                <option value="">{t.selectCampusOption}</option>
-                <option value="Bahçeşehir Garden Campus">Bahçeşehir Garden Campus</option>
-                <option value="Çamlıca Hill Campus">Çamlıca Hill Campus</option>
-                <option value="Zekeriyaköy Hill Side Campus">Zekeriyaköy Hill Side Campus</option>
-                <option value="Alkent Village Campus">Alkent Village Campus</option>
+              <label className="form-label">{t.selectCountry}</label>
+              <select className="form-input form-select" name="country" value={form.country} onChange={handleChange} style={errors.country || errors.countryNotAvailable ? { borderColor: '#E53E3E' } : {}}>
+                <option value="">{t.selectCountryOption}</option>
+                <option value="Türkiye">🇹🇷 Türkiye</option>
+                <option value="United Kingdom">🇬🇧 United Kingdom</option>
+                <option value="Germany">🇩🇪 Germany</option>
+                <option value="France">🇫🇷 France</option>
+                <option value="Netherlands">🇳🇱 Netherlands</option>
+                <option value="Sweden">🇸🇪 Sweden</option>
+                <option value="Switzerland">🇨🇭 Switzerland</option>
+                <option value="Norway">🇳🇴 Norway</option>
+                <option value="Denmark">🇩🇰 Denmark</option>
+                <option value="Finland">🇫🇮 Finland</option>
+                <option value="Austria">🇦🇹 Austria</option>
+                <option value="Belgium">🇧🇪 Belgium</option>
               </select>
-              {errors.campus && <span style={{ fontSize: 11, color: '#E53E3E' }}>{errors.campus}</span>}
+              {errors.country && !errors.countryNotAvailable && <span style={{ fontSize: 11, color: '#E53E3E' }}>{errors.country}</span>}
+              {errors.countryNotAvailable && (
+                <div className="country-unavailable-msg">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0, marginTop: 1 }}><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                  <span>{errors.countryNotAvailable}</span>
+                </div>
+              )}
             </div>
+            {isTurkey && (
+              <>
+                <div className="form-section-label">{t.campus}</div>
+                <div className="form-group">
+                  <label className="form-label">{t.selectCampus}</label>
+                  <select className="form-input form-select" name="campus" value={form.campus} onChange={handleChange} style={errors.campus ? { borderColor: '#E53E3E' } : {}}>
+                    <option value="">{t.selectCampusOption}</option>
+                    <option value="Bahçeşehir Garden Campus">Bahçeşehir Garden Campus</option>
+                    <option value="Çamlıca Hill Campus">Çamlıca Hill Campus</option>
+                    <option value="Zekeriyaköy Hill Side Campus">Zekeriyaköy Hill Side Campus</option>
+                    <option value="Alkent Village Campus">Alkent Village Campus</option>
+                  </select>
+                  {errors.campus && <span style={{ fontSize: 11, color: '#E53E3E' }}>{errors.campus}</span>}
+                </div>
+              </>
+            )}
             <button type="submit" className="btn-primary">
               {t.continueToClass}
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
