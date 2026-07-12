@@ -1573,7 +1573,7 @@ a  { color: var(--navy-mid); text-decoration: none; }
   position: relative;
   overflow: hidden;
   margin-top: 80px;
-  height: 420px;
+  height: 210px;
   background-image: url('/anasayfa/study-in-the-uk-boarding-school-ua-yp.jpg.avif');
   background-size: cover;
   background-attachment: fixed;
@@ -1595,7 +1595,7 @@ a  { color: var(--navy-mid); text-decoration: none; }
 }
 @media (max-width: 768px) {
   .parallax-strip {
-    height: 260px;
+    height: 130px;
     background-attachment: scroll;
     background-position: center;
     background-size: cover;
