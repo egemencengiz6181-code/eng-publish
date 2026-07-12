@@ -73,10 +73,35 @@ export const translations = {
     letterP5: "Our aim is to instil a regular study routine in our students, fostering individuals who learn how to learn and are academically strong. In this process, the support and cooperation of you, our valued parents, are of great importance to us.",
     letterP6: "We thank you for your understanding and contributions, and wish you a healthy and successful academic year.",
     letterSign: 'Kind regards,\nSchool Management',
+    letterSalfordTitle: 'Salford Reading Assessment',
+    letterSalfordDesc: 'The Salford Reading Assessment is a standardised test that measures a student\'s reading accuracy and reading age. Students read short passages of gradually increasing difficulty, and the test stops once a set error threshold is reached. The results compare the student\'s reading age to their chronological age, showing their reading level relative to peers.',
 
     // ClassPackInfo
     classPackInfoTitle: "Information Regarding the Educational Content of BIS Schools",
     classPackInfoSub: "The educational activities carried out for students throughout the year, in line with BIS Schools' distinctive teaching and learning practices and student development monitoring, are as follows.",
+    classPackCoding: 'Coding and Algorithm Pack / Bee-Bot Robot',
+    classPackCodingDesc: 'At our school, we offer hands-on coding and problem-solving activities designed to help students develop their logical thinking, sequencing and basic robotics skills through interactive Bee-Bot robot applications.',
+    classPackIDP: 'Individual Development Progress (IDP) Pack',
+    classPackIDPDesc: "Throughout the academic year, a comprehensive student progress monitoring system is in place to track pupils' academic, social, emotional and developmental progress within the framework of the Cambridge Programme. Pupils' progress is assessed four times a year, and the results are provided to them in the form of report cards.",
+    classPackAssessment: 'English Formative and Summative Assessment Pack',
+    classPackAssessmentDesc: "A structured assessment package, which includes ongoing formative assessments and summative assessments at the end of each unit, is provided to measure students' English language development and learning outcomes; Cambridge assessments are administered three times a year—at the beginning, middle, and end of the school year.",
+    classPackAudit: 'Auditing Pack',
+    classPackAuditDesc: 'It includes a structured documentation program designed to support academic monitoring, institutional audits, and evaluations of educational standards by both Cambridge authorities and BIS management.',
+    classPackCognitive: 'Cognitive Skills Assessment Pack',
+    classPackCognitiveDesc: "It comprises a skills-based assessment programme and reporting system designed to evaluate students' reasoning, memory, attention, problem-solving and critical thinking skills.",
+    classPackTurkish: 'Turkish Lessons Topic Assessment Test',
+    classPackTurkishDesc: "A structured assessment program designed to measure students' understanding and achievement in Turkish language topics. The test evaluates reading comprehension, grammar, vocabulary, writing skills, and topic-based learning outcomes while supporting academic progress monitoring and individualized student development.",
+
+    // ResourceGroup / PackDetail
+    lessonSubject: 'Lesson / Subject',
+    resource: 'Resource',
+    items: 'items',
+    academicYearLabel: '2026–2027 Academic Year',
+
+    // ProRef
+    prorefLabel: 'Student Development & Assessment Platform',
+    prorefDesc: 'BIS Schools uses Pro/Ref, a 360° AI-powered assessment and development platform, to support the holistic growth of every student. Through multi-perspective evaluations — combining teacher, parent, and self-assessment — and personalised AI Tutor guidance, Pro/Ref transforms feedback into actionable development insights for each individual learner.',
+    prorefLink: 'Learn more at proref360.com',
 
     // Payment Section
     paymentDetails: 'Payment Details',
@@ -190,10 +215,35 @@ export const translations = {
     letterP5: "Amacımız, öğrencilerimize düzenli çalışma alışkanlığı kazandırarak nasıl öğrenileceğini bilen ve akademik açıdan güçlü bireyler yetiştirmektir. Bu süreçte değerli velilerimizin desteği ve iş birliği bizim için büyük önem taşımaktadır.",
     letterP6: "İlgi ve katkılarınız için teşekkür eder, sağlıklı ve başarılı bir akademik yıl dileriz.",
     letterSign: 'Saygılarımızla,\nOkul Yönetimi',
+    letterSalfordTitle: 'Salford Okuma Değerlendirmesi',
+    letterSalfordDesc: 'Salford Okuma Değerlendirmesi, öğrencinin okuma doğruluğunu ve okuma yaşını ölçen standart bir testtir. Öğrenciye zorluk düzeyi kademeli olarak artan kısa metinler okutulur ve belirli bir hata sınırına ulaşıldığında test sonlandırılır. Sonuçlar, öğrencinin okuma yaşını kronolojik yaşıyla karşılaştırarak akranlarına göre düzeyini gösterir.',
 
     // ClassPackInfo
     classPackInfoTitle: "BIS Okulları'nın Eğitim İçerikleri Hakkında Bilgi",
     classPackInfoSub: "BIS Okulları'nın kendine özgü öğretme-öğrenme pratikleri ve öğrenci gelişimini izleme çerçevesinde yıl boyunca öğrenciler için gerçekleştirilen eğitim faaliyetleri aşağıdaki gibidir.",
+    classPackCoding: 'Kodlama ve Algoritma Paketi / Bee-Bot Robot',
+    classPackCodingDesc: 'Okulumuzda, öğrencilerin interaktif Bee-Bot robot uygulamaları aracılığıyla mantıksal düşünme, sıralama ve temel robotik becerilerini geliştirmelerine yardımcı olmak amacıyla uygulamalı kodlama ve problem çözme etkinlikleri sunulmaktadır.',
+    classPackIDP: 'Bireysel Gelişim İzleme (BGİ) Paketi',
+    classPackIDPDesc: 'Akademik yıl boyunca, öğrencilerin akademik, sosyal, duygusal ve gelişimsel ilerlemelerini Cambridge Programı çerçevesinde takip etmek amacıyla kapsamlı bir öğrenci ilerleme izleme sistemi uygulanmaktadır. Öğrenci ilerlemesi yılda dört kez değerlendirilir ve sonuçlar karne şeklinde sunulur.',
+    classPackAssessment: 'İngilizce Biçimlendirici ve Özetleyici Değerlendirme Paketi',
+    classPackAssessmentDesc: 'Öğrencilerin İngilizce dil gelişimini ve öğrenme çıktılarını ölçmek amacıyla; süregelen biçimlendirici değerlendirmeleri ve her ünitenin sonundaki özetleyici değerlendirmeleri kapsayan yapılandırılmış bir değerlendirme paketi sunulmaktadır. Cambridge değerlendirmeleri yılda üç kez — akademik yılın başında, ortasında ve sonunda — uygulanmaktadır.',
+    classPackAudit: 'Denetim Paketi',
+    classPackAuditDesc: 'Cambridge yetkilileri ve BIS yönetimi tarafından gerçekleştirilen akademik izleme, kurumsal denetimler ve eğitim standartlarının değerlendirilmesini desteklemek amacıyla tasarlanmış yapılandırılmış bir dokümantasyon programını kapsamaktadır.',
+    classPackCognitive: 'Bilişsel Beceri Değerlendirme Paketi',
+    classPackCognitiveDesc: 'Öğrencilerin akıl yürütme, bellek, dikkat, problem çözme ve eleştirel düşünme becerilerini değerlendirmek amacıyla tasarlanmış beceri temelli bir değerlendirme programını ve raporlama sistemini kapsamaktadır.',
+    classPackTurkish: 'Türkçe Dersleri Konu Değerlendirme Sınavı',
+    classPackTurkishDesc: 'Öğrencilerin Türkçe dil konularındaki anlama ve başarı düzeyini ölçmek amacıyla tasarlanmış yapılandırılmış bir değerlendirme programıdır. Sınav; okuduğunu anlama, dilbilgisi, kelime bilgisi, yazma becerileri ve konu temelli öğrenme çıktılarını değerlendirirken akademik ilerlemenin izlenmesini ve bireyselleştirilmiş öğrenci gelişimini destekler.',
+
+    // ResourceGroup / PackDetail
+    lessonSubject: 'Ders / Konu',
+    resource: 'Kaynak',
+    items: 'öğe',
+    academicYearLabel: '2026–2027 Akademik Yılı',
+
+    // ProRef
+    prorefLabel: 'Öğrenci Gelişimi ve Değerlendirme Platformu',
+    prorefDesc: 'BIS Okulları, her öğrencinin bütünsel gelişimini desteklemek amacıyla Pro/Ref platformunu kullanmaktadır. Öğretmen, veli ve öz değerlendirmeyi bir araya getiren çok perspektifli 360° değerlendirme yapısı ve kişiye özel AI Tutor rehberliğiyle Pro/Ref, geri bildirimi her öğrenci için somut bir gelişim yol haritasına dönüştürür.',
+    prorefLink: 'proref360.com adresini ziyaret edin',
 
     // Payment Section
     paymentDetails: 'Ödeme Bilgileri',

@@ -1570,25 +1570,37 @@ a  { color: var(--navy-mid); text-decoration: none; }
 
 /* ── Parallax Strip ───────────────────────────── */
 .parallax-strip {
-  height: 190px;
-  background: url('/anasayfa/study-in-the-uk-boarding-school-ua-yp.jpg.avif') center/cover fixed;
   position: relative;
   overflow: hidden;
   margin-top: 80px;
+  height: 420px;
+  background-image: url('/anasayfa/study-in-the-uk-boarding-school-ua-yp.jpg.avif');
+  background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
 }
 .parallax-strip-fade {
   position: absolute;
   left: 0; right: 0;
-  height: 70px;
+  height: 100px;
   z-index: 1;
 }
 .parallax-strip-fade.top {
   top: 0;
-  background: linear-gradient(to bottom, rgba(0,0,0,.8), transparent);
+  background: linear-gradient(to bottom, rgba(0,0,0,.55), transparent);
 }
 .parallax-strip-fade.bottom {
   bottom: 0;
-  background: linear-gradient(to top, rgba(0,0,0,.8), transparent);
+  background: linear-gradient(to top, rgba(0,0,0,.55), transparent);
+}
+@media (max-width: 768px) {
+  .parallax-strip {
+    height: 260px;
+    background-attachment: scroll;
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+  }
 }
 
 /* ── Pack Banner (detail image strip) ─────────── */
@@ -1941,6 +1953,77 @@ a  { color: var(--navy-mid); text-decoration: none; }
   color: var(--text-sec);
   line-height: 1.55;
 }
+
+/* ── ProRef Section ──────────────────────────── */
+.proref-section {
+  background: var(--bg-white);
+  border-radius: var(--r-lg);
+  border: 1px solid var(--border-light);
+  margin-bottom: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-sm);
+  padding: 24px 24px 22px;
+}
+.proref-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+}
+.proref-logo {
+  height: 36px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  margin-top: 2px;
+  /* Convert any colour to dark green matching --navy */
+  filter: brightness(0) saturate(100%) invert(18%) sepia(40%) saturate(600%) hue-rotate(100deg) brightness(80%);
+}
+.proref-content { flex: 1; min-width: 0; }
+.proref-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .07em;
+  color: var(--navy-soft);
+  margin-bottom: 7px;
+}
+.proref-desc {
+  font-size: 13px;
+  color: var(--text-sec);
+  line-height: 1.6;
+  margin: 0 0 10px;
+}
+.proref-link {
+  display: inline-flex;
+  align-items: center;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--navy);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(27,61,42,0.3);
+  padding-bottom: 1px;
+  transition: border-color .2s, color .2s;
+}
+.proref-link:hover { color: var(--navy-mid); border-color: var(--navy-mid); }
+@media (max-width: 600px) {
+  .proref-inner { flex-direction: column; gap: 14px; }
+  .proref-logo { height: 28px; }
+}
+
+/* ── Salford reading assessment in letter ────── */
+.letter-salford {
+  margin-top: 16px;
+  padding: 14px 16px;
+  background: rgba(27,61,42,0.04);
+  border-left: 3px solid var(--navy-soft);
+  border-radius: 0 var(--r-sm) var(--r-sm) 0;
+}
+.letter-salford-title {
+  margin: 0 0 6px;
+  font-size: 13.5px;
+  color: var(--navy);
+}
+.letter-salford p:last-child { margin: 0; }
 
 /* ── Language Switcher ───────────────────────── */
 .lang-switcher {

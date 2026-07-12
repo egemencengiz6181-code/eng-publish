@@ -57,9 +57,7 @@ function PricingBox({ packId }) {
   return (
     <div className="pricing-box fade-up">
       <div className="pricing-box-header">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0 }}>
-          <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-        </svg>
+        <span style={{ fontWeight: 700, fontSize: 15, flexShrink: 0, color: 'var(--navy)', lineHeight: 1 }}>₺</span>
         <span className="pricing-box-title">{t.pricingTitle}</span>
       </div>
       <div className="pricing-box-rows">
@@ -204,7 +202,6 @@ function Nav({ lang, setLang }) {
     <nav className="nav">
       <div className="nav-inner">
         <a href="#" className="nav-logo">
-          <div className="nav-logo-mark">EP</div>
           <div>
             <div className="nav-logo-text">ENG Publish</div>
             <div className="nav-logo-sub">{t.schoolResourcePacks}</div>
@@ -407,6 +404,7 @@ function ClassSelection({ formData, onSelect, onBack }) {
 
 /* ─── Resource Group ──────────────────────────────── */
 function ResourceGroup({ group, index }) {
+  const t = useLang()
   const groupColors = {
     'Modern Foreign Language': '#7B6FA0',
     'English (Cambridge International Curriculum)': '#4A6FA5',
@@ -420,10 +418,10 @@ function ResourceGroup({ group, index }) {
       <div className="resource-group-header">
         <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke={color} strokeWidth="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
         <span className="resource-group-name" style={{ color }}>{group.group}</span>
-        <span className="resource-group-badge">{totalItems} items</span>
+        <span className="resource-group-badge">{totalItems} {t.items}</span>
       </div>
       <table className="resource-table">
-        <thead><tr><th>Lesson / Subject</th><th>Resource</th></tr></thead>
+        <thead><tr><th>{t.lessonSubject}</th><th>{t.resource}</th></tr></thead>
         <tbody>
           {group.items.map((item, j) => (
             <tr key={j}>
@@ -451,8 +449,9 @@ const genelImages = [
 ]
 
 /* ─── Letter from School Management ─────────────────────────── */
-function LetterSection() {
+function LetterSection({ packId }) {
   const t = useLang()
+  const isYear = packId && packId.startsWith('year-')
   return (
     <div className="letter-section fade-up">
       <div className="letter-toggle" style={{ cursor: 'default' }}>
@@ -470,6 +469,12 @@ function LetterSection() {
         </ul>
         <p>{t.letterP5}</p>
         <p>{t.letterP6}</p>
+        {isYear && (
+          <div className="letter-salford">
+            <p className="letter-salford-title"><strong>{t.letterSalfordTitle}</strong></p>
+            <p>{t.letterSalfordDesc}</p>
+          </div>
+        )}
         <p className="letter-sign"><em>{t.letterSign.split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}</em></p>
       </div>
     </div>
@@ -477,18 +482,17 @@ function LetterSection() {
 }
 
 /* ─── Class Pack Information ─────────────────────────────────── */
-const classPackItems = [
-  { title: 'Coding and Algorithm Pack / Bee-Bot Robot', desc: 'At our school, we offer hands-on coding and problem-solving activities designed to help students develop their logical thinking, sequencing and basic robotics skills through interactive Bee-Bot robot applications.' },
-  { title: 'Individual Development Progress (IDP) Pack', desc: "Throughout the academic year, a comprehensive student progress monitoring system is in place to track pupils' academic, social, emotional and developmental progress within the framework of the Cambridge Programme. Pupils' progress is assessed four times a year, and the results are provided to them in the form of report cards." },
-  { title: 'English Formative and Summative Assessment Pack', desc: "A structured assessment package, which includes ongoing formative assessments and summative assessments at the end of each unit, is provided to measure students' English language development and learning outcomes; Cambridge assessments are administered three times a year—at the beginning, middle, and end of the school year." },
-  { title: 'Auditing Pack', desc: 'It includes a structured documentation program designed to support academic monitoring, institutional audits, and evaluations of educational standards by both Cambridge authorities and BIS management.' },
-  { title: 'Cognitive Skills Assessment Pack', desc: "It comprises a skills-based assessment programme and reporting system designed to evaluate students' reasoning, memory, attention, problem-solving and critical thinking skills." },
-]
-const turkishLessonsItem = { title: 'Turkish Lessons Topic Assessment Test', desc: "A structured assessment program designed to measure students' understanding and achievement in Turkish language topics. The test evaluates reading comprehension, grammar, vocabulary, writing skills, and topic-based learning outcomes while supporting academic progress monitoring and individualized student development." }
-
 function ClassPackInfo({ packId }) {
   const t = useLang()
-  const items = packId.startsWith('year-') ? [...classPackItems, turkishLessonsItem] : classPackItems
+  const baseItems = [
+    { title: t.classPackCoding,     desc: t.classPackCodingDesc },
+    { title: t.classPackIDP,        desc: t.classPackIDPDesc },
+    { title: t.classPackAssessment, desc: t.classPackAssessmentDesc },
+    { title: t.classPackAudit,      desc: t.classPackAuditDesc },
+    { title: t.classPackCognitive,  desc: t.classPackCognitiveDesc },
+  ]
+  const turkishItem = { title: t.classPackTurkish, desc: t.classPackTurkishDesc }
+  const items = packId.startsWith('year-') ? [...baseItems, turkishItem] : baseItems
   return (
     <div className="class-pack-info fade-up">
       <div className="class-pack-info-header">
@@ -505,6 +509,26 @@ function ClassPackInfo({ packId }) {
             <div className="class-pack-info-item-desc">{item.desc}</div>
           </div>
         ))}
+      </div>
+    </div>
+  )
+}
+
+/* ─── ProRef Section ─────────────────────────────────────────── */
+function ProRefSection() {
+  const t = useLang()
+  return (
+    <div className="proref-section fade-up">
+      <div className="proref-inner">
+        <img src="/proref/proref-logo-text.png" alt="Pro/Ref" className="proref-logo" />
+        <div className="proref-content">
+          <div className="proref-label">{t.prorefLabel}</div>
+          <p className="proref-desc">{t.prorefDesc}</p>
+          <a href="https://proref360.com" target="_blank" rel="noopener noreferrer" className="proref-link">
+            {t.prorefLink}
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginLeft: 4 }}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          </a>
+        </div>
       </div>
     </div>
   )
@@ -639,7 +663,7 @@ function PackDetail({ packId, formData, onBack }) {
                   <span className="pack-icon-initials">{pack.label}</span>
                 </div>
                 <div className="pack-title-block">
-                  <div className="pack-tag" style={{ color: 'var(--navy-soft)' }}>2026–2027 Academic Year</div>
+                  <div className="pack-tag" style={{ color: 'var(--navy-soft)' }}>{t.academicYearLabel}</div>
                   <h1 className="pack-header-title">{pack.name} {t.resourcePack}</h1>
                   <div className="pack-header-sub">{pack.subtitle} · {count} {t.resourcesAcross} {pack.groups.length} {t.categories}</div>
                 </div>
@@ -650,7 +674,7 @@ function PackDetail({ packId, formData, onBack }) {
               </button>
             </div>
 
-            <LetterSection />
+            <LetterSection packId={packId} />
 
             {pack.note && (
               <div className="pack-note-box fade-up">
@@ -664,6 +688,8 @@ function PackDetail({ packId, formData, onBack }) {
             ))}
 
             <ClassPackInfo packId={packId} />
+
+            <ProRefSection />
 
             <div className="pack-payment-section fade-up">
               <div className="pack-payment-header">
