@@ -9,9 +9,12 @@ const SMTP = {
     pass: process.env.SMTP_PASS,
   },
   tls: { rejectUnauthorized: false },
-  connectionTimeout: 15000,
-  socketTimeout: 15000,
-  greetingTimeout: 15000,
+  connectionTimeout: 20000,
+  socketTimeout: 20000,
+  greetingTimeout: 20000,
+  pool: true,
+  maxConnections: 1,
+  maxMessages: 5,
 }
 
 function buildAutoResponderHtml({ parent_name, student_name, pack_name, price, campus }) {
@@ -124,8 +127,7 @@ export default async function handler(req, res) {
       return res.status(500).json({ ok: false, error: 'server_not_configured' })
     }
 
-    const internalTransporter = nodemailer.createTransport(SMTP)
-    const autoTransporter = nodemailer.createTransport(SMTP)
+    const transporter = nodemailer.createTransport(SMTP)
 
     const internalText = `
 YENİ SİPARİŞ — ENG Publish
@@ -148,9 +150,10 @@ Sipariş Tar.: ${order_date}
     const autoText = `Sayın ${parent_name},\n\n${student_name} için ${pack_name} başvurunuz başarıyla alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.\n\nSipariş özeti:\nPaket: ${pack_name}\nFiyat: ${price}\nÖğrenci: ${student_name}\nKampüs: ${campus}\n\nSorular için: info@engpublish.com\n\nENG Publish`
     const autoHtml = buildAutoResponderHtml({ parent_name, student_name, pack_name, price, campus })
 
-    // Send sequentially over separate connections — the SMTP host limits
-    // concurrent connections per account, so parallel sends were timing out.
-    const internalResult = await internalTransporter.sendMail({
+    // Reuse a single pooled connection for both emails — opening two
+    // separate connections back-to-back caused the second one to hang
+    // until timeout on this SMTP host.
+    const internalResult = await transporter.sendMail({
       from: '"ENG Publish" <info@engpublish.com>',
       to: 'info@engpublish.com',
       replyTo: from_email,
@@ -158,13 +161,15 @@ Sipariş Tar.: ${order_date}
       text: internalText,
     }).then(() => ({ status: 'fulfilled' })).catch((reason) => ({ status: 'rejected', reason }))
 
-    const autoResult = await autoTransporter.sendMail({
+    const autoResult = await transporter.sendMail({
       from: '"ENG Publish" <info@engpublish.com>',
       to: from_email,
       subject: `Başvurunuz Alındı — ${pack_name}`,
       text: autoText,
       html: autoHtml,
     }).then(() => ({ status: 'fulfilled' })).catch((reason) => ({ status: 'rejected', reason }))
+
+    transporter.close()
 
     if (internalResult.status === 'rejected') {
       console.error('Internal mail failed:', internalResult.reason?.message)
