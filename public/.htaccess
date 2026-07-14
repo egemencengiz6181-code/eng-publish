@@ -1,0 +1,10 @@
+Options -MultiViews
+RewriteEngine On
+
+# PHP api klasörünü rewrite'dan muaf tut
+RewriteRule ^api/ - [L]
+
+# React Router için – gerçek dosya/klasör değilse index.html'e yönlendir
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.html [QSA,L]
