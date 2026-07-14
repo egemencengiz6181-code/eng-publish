@@ -1,4 +1,5 @@
 import { useState, createContext, useContext } from 'react'
+import emailjs from '@emailjs/browser'
 import { packs } from './data/packs'
 import { translations } from './translations'
 
@@ -607,6 +608,8 @@ function PaymentModal({ pack, formData, onClose }) {
   const [contact, setContact] = useState({ email: '', phone: '', note: '' })
   const [errors, setErrors] = useState({})
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [sendError, setSendError] = useState('')
 
   function handleChange(e) {
     const { name, value } = e.target
@@ -626,7 +629,53 @@ function PaymentModal({ pack, formData, onClose }) {
     e.preventDefault()
     const errs = validate()
     if (Object.keys(errs).length) { setErrors(errs); return }
-    setSubmitted(true)
+    setSending(true)
+    setSendError('')
+
+    const month = new Date().getMonth()
+    const pricePeriod = month < 7 ? 'Temmuz' : month === 7 ? 'Ağustos' : 'Eylül'
+    const priceMap = {
+      'eyfs-junior': { temmuz: '₺75.739,70', agustos: '₺79.726,00', eylul: '₺87.698,60' },
+      'eyfs-1':      { temmuz: '₺75.739,70', agustos: '₺79.726,00', eylul: '₺87.698,60' },
+      'eyfs-2':      { temmuz: '₺75.739,70', agustos: '₺79.726,00', eylul: '₺87.698,60' },
+      'year-1':      { temmuz: '₺89.794,50', agustos: '₺92.787,65', eylul: '₺102.066,42' },
+      'year-2':      { temmuz: '₺80.392,50', agustos: '₺83.072,25', eylul: '₺91.379,48' },
+      'year-3':      { temmuz: '₺81.019,50', agustos: '₺83.720,15', eylul: '₺92.092,17' },
+      'year-4':      { temmuz: '₺90.721,50', agustos: '₺93.745,55', eylul: '₺103.120,11' },
+      'year-5':      { temmuz: '₺95.340,00', agustos: '₺98.518,00', eylul: '₺108.369,80' },
+      'year-6':      { temmuz: '₺95.340,00', agustos: '₺98.518,00', eylul: '₺108.369,80' },
+      'year-7':      { temmuz: '₺95.340,00', agustos: '₺98.518,00', eylul: '₺108.369,80' },
+      'year-8':      { temmuz: '₺95.340,00', agustos: '₺98.518,00', eylul: '₺108.369,80' },
+      'prep':        { temmuz: '₺95.340,00', agustos: '₺98.518,00', eylul: '₺108.369,80' },
+    }
+    const p = priceMap[pack.id]
+    const priceStr = p ? `${month < 7 ? p.temmuz : month === 7 ? p.agustos : p.eylul} (${pricePeriod})` : 'N/A'
+
+    emailjs
+      .send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          pack_name:    pack.name,
+          pack_id:      pack.id,
+          price:        priceStr,
+          parent_name:  `${formData.parentFirst} ${formData.parentLast}`,
+          student_name: `${formData.studentFirst} ${formData.studentLast}`,
+          country:      formData.country  || '—',
+          campus:       formData.campus   || formData.school || '—',
+          from_email:   contact.email,
+          phone:        contact.phone,
+          note:         contact.note || '—',
+          order_date:   new Date().toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+          to_email:     'info@engpublish.com',
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
+      )
+      .then(() => { setSending(false); setSubmitted(true) })
+      .catch(() => {
+        setSending(false)
+        setSendError('Gönderim hatası. Lütfen tekrar deneyin veya info@engpublish.com ile iletişime geçin.')
+      })
   }
 
   return (
@@ -688,9 +737,16 @@ function PaymentModal({ pack, formData, onClose }) {
                 <label className="form-label">{t.note} <span className="label-optional">{t.optional}</span></label>
                 <textarea className="form-input" name="note" value={contact.note} onChange={handleChange} placeholder={t.notePlaceholder} rows={3} style={{ resize: 'vertical' }} />
               </div>
-              <button type="submit" className="btn-primary modal-submit">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>
-                {t.submitOrder}
+              {sendError && (
+                <div style={{ fontSize: 12, color: '#C53030', background: '#FFF5F5', border: '1px solid #FC8181', borderRadius: 6, padding: '8px 12px', marginBottom: 4 }}>
+                  {sendError}
+                </div>
+              )}
+              <button type="submit" className="btn-primary modal-submit" disabled={sending}>
+                {sending
+                  ? <span style={{ opacity: 0.7 }}>Gönderiliyor…</span>
+                  : <><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><polyline points="20 6 9 17 4 12"/></svg>{t.submitOrder}</>
+                }
               </button>
             </form>
           </>
