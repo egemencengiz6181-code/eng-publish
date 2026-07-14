@@ -1,5 +1,4 @@
 import { useState, createContext, useContext } from 'react'
-import emailjs from '@emailjs/browser'
 import { packs } from './data/packs'
 import { translations } from './translations'
 
@@ -651,27 +650,29 @@ function PaymentModal({ pack, formData, onClose }) {
     const p = priceMap[pack.id]
     const priceStr = p ? `${month < 7 ? p.temmuz : month === 7 ? p.agustos : p.eylul} (${pricePeriod})` : 'N/A'
 
-    emailjs
-      .send(
-        import.meta.env.VITE_EMAILJS_SERVICE_ID,
-        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
-        {
-          pack_name:    pack.name,
-          pack_id:      pack.id,
-          price:        priceStr,
-          parent_name:  `${formData.parentFirst} ${formData.parentLast}`,
-          student_name: `${formData.studentFirst} ${formData.studentLast}`,
-          country:      formData.country  || '—',
-          campus:       formData.campus   || formData.school || '—',
-          from_email:   contact.email,
-          phone:        contact.phone,
-          note:         contact.note || '—',
-          order_date:   new Date().toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
-          to_email:     'info@engpublish.com',
-        },
-        import.meta.env.VITE_EMAILJS_PUBLIC_KEY,
-      )
-      .then(() => { setSending(false); setSubmitted(true) })
+    fetch('/api/send-order.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        pack_name:    pack.name,
+        pack_id:      pack.id,
+        price:        priceStr,
+        parent_name:  `${formData.parentFirst} ${formData.parentLast}`,
+        student_name: `${formData.studentFirst} ${formData.studentLast}`,
+        country:      formData.country || '—',
+        campus:       formData.campus  || formData.school || '—',
+        from_email:   contact.email,
+        phone:        contact.phone,
+        note:         contact.note || '—',
+        order_date:   new Date().toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+      }),
+    })
+      .then(r => r.json())
+      .then(res => {
+        setSending(false)
+        if (res.ok) setSubmitted(true)
+        else setSendError('Gönderim hatası. Lütfen tekrar deneyin veya info@engpublish.com ile iletişime geçin.')
+      })
       .catch(() => {
         setSending(false)
         setSendError('Gönderim hatası. Lütfen tekrar deneyin veya info@engpublish.com ile iletişime geçin.')
