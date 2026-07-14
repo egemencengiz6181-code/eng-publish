@@ -650,32 +650,48 @@ function PaymentModal({ pack, formData, onClose }) {
     const p = priceMap[pack.id]
     const priceStr = p ? `${month < 7 ? p.temmuz : month === 7 ? p.agustos : p.eylul} (${pricePeriod})` : 'N/A'
 
-    fetch('/api/send-order.php', {
+    const payload = {
+      pack_name:    pack.name,
+      pack_id:      pack.id,
+      price:        priceStr,
+      parent_name:  `${formData.parentFirst} ${formData.parentLast}`,
+      student_name: `${formData.studentFirst} ${formData.studentLast}`,
+      country:      formData.country || '—',
+      campus:       formData.campus  || formData.school || '—',
+      from_email:   contact.email,
+      phone:        contact.phone,
+      note:         contact.note || '—',
+      order_date:   new Date().toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
+    }
+
+    // Dev ortamında PHP yok — sadece UI akışını test et
+    if (import.meta.env.DEV) {
+      console.log('[DEV] Form payload:', payload)
+      setTimeout(() => { setSending(false); setSubmitted(true) }, 800)
+      return
+    }
+
+    fetch('/api/send-order', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        pack_name:    pack.name,
-        pack_id:      pack.id,
-        price:        priceStr,
-        parent_name:  `${formData.parentFirst} ${formData.parentLast}`,
-        student_name: `${formData.studentFirst} ${formData.studentLast}`,
-        country:      formData.country || '—',
-        campus:       formData.campus  || formData.school || '—',
-        from_email:   contact.email,
-        phone:        contact.phone,
-        note:         contact.note || '—',
-        order_date:   new Date().toLocaleDateString('tr-TR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' }),
-      }),
+      body: JSON.stringify(payload),
     })
-      .then(r => r.json())
-      .then(res => {
+      .then(r => r.text())
+      .then(text => {
         setSending(false)
-        if (res.ok) setSubmitted(true)
-        else setSendError('Gönderim hatası. Lütfen tekrar deneyin veya info@engpublish.com ile iletişime geçin.')
+        try {
+          const res = JSON.parse(text)
+          if (res.ok) setSubmitted(true)
+          else setSendError('Gönderim hatası. Lütfen info@engpublish.com ile iletişime geçin.')
+        } catch {
+          // PHP hata çıktısı var — mail yine de gönderilmiş olabilir
+          console.error('PHP response:', text)
+          setSendError('Gönderim hatası. Lütfen info@engpublish.com ile iletişime geçin.')
+        }
       })
       .catch(() => {
         setSending(false)
-        setSendError('Gönderim hatası. Lütfen tekrar deneyin veya info@engpublish.com ile iletişime geçin.')
+        setSendError('Gönderim hatası. Lütfen info@engpublish.com ile iletişime geçin.')
       })
   }
 
