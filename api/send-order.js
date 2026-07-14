@@ -9,68 +9,13 @@ const SMTP = {
     pass: process.env.SMTP_PASS,
   },
   tls: { rejectUnauthorized: false },
-  connectionTimeout: 7000,
-  socketTimeout: 7000,
-  greetingTimeout: 7000,
+  connectionTimeout: 8000,
+  socketTimeout: 8000,
+  greetingTimeout: 8000,
 }
 
-export default async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', '*')
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
-
-  if (req.method === 'OPTIONS') return res.status(200).end()
-  if (req.method !== 'POST') return res.status(405).json({ ok: false })
-
-  const {
-    pack_name, pack_id, price,
-    parent_name, student_name,
-    country, campus,
-    from_email, phone, note, order_date,
-  } = req.body ?? {}
-
-  if (!from_email || !student_name) {
-    return res.status(400).json({ ok: false, error: 'Missing fields' })
-  }
-
-  // ── Internal notification to info@engpublish.com ─────────────
-  const internalText = `
-YENİ SİPARİŞ — ENG Publish
-============================================
-Paket       : ${pack_name} (${pack_id})
-Fiyat       : ${price}
-
-Veli        : ${parent_name}
-Öğrenci     : ${student_name}
-Ülke        : ${country}
-Kampüs/Okul : ${campus}
-
-E-posta     : ${from_email}
-Telefon     : ${phone}
-Not         : ${note || '—'}
-
-Sipariş Tar.: ${order_date}
-============================================`.trim()
-
-  try {
-    const t1 = nodemailer.createTransport(SMTP)
-    await t1.sendMail({
-      from: '"ENG Publish" <info@engpublish.com>',
-      to:   'info@engpublish.com',
-      replyTo: from_email,
-      subject: `Yeni Sipariş: ${pack_name} — ${student_name}`,
-      text: internalText,
-    })
-  } catch (err) {
-    console.error('Internal mail failed:', err.message)
-    return res.status(500).json({ ok: false, error: 'mail_failed' })
-  }
-
-  // ── Return success to user immediately ───────────────────────
-  res.status(200).json({ ok: true })
-
-  // ── Auto-responder HTML to customer (best-effort, after response) ─
-  const autoHtml = `<!DOCTYPE html>
+function buildAutoResponderHtml({ parent_name, student_name, pack_name, price, campus }) {
+  return `<!DOCTYPE html>
 <html lang="tr">
 <head>
 <meta charset="UTF-8"/>
@@ -152,21 +97,90 @@ Sipariş Tar.: ${order_date}
 </table>
 </body>
 </html>`
+}
 
-  const autoText = `Sayın ${parent_name},\n\n${student_name} için ${pack_name} başvurunuz başarıyla alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.\n\nSipariş özeti:\nPaket: ${pack_name}\nFiyat: ${price}\nÖğrenci: ${student_name}\nKampüs: ${campus}\n\nSorular için: info@engpublish.com\n\nENG Publish`
+export default async function handler(req, res) {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
+
+  if (req.method === 'OPTIONS') return res.status(200).end()
+  if (req.method !== 'POST') return res.status(405).json({ ok: false })
 
   try {
-    const t2 = nodemailer.createTransport(SMTP)
-    await t2.sendMail({
-      from:    '"ENG Publish" <info@engpublish.com>',
-      to:      from_email,
-      subject: `Başvurunuz Alındı — ${pack_name}`,
-      text:    autoText,
-      html:    autoHtml,
-    })
-    console.log('Auto-responder sent to', from_email)
+    const {
+      pack_name, pack_id, price,
+      parent_name, student_name,
+      country, campus,
+      from_email, phone, note, order_date,
+    } = req.body ?? {}
+
+    if (!from_email || !student_name) {
+      return res.status(400).json({ ok: false, error: 'Missing fields' })
+    }
+
+    if (!process.env.SMTP_PASS) {
+      console.error('SMTP_PASS environment variable is not set')
+      return res.status(500).json({ ok: false, error: 'server_not_configured' })
+    }
+
+    const transporter = nodemailer.createTransport(SMTP)
+
+    const internalText = `
+YENİ SİPARİŞ — ENG Publish
+============================================
+Paket       : ${pack_name} (${pack_id})
+Fiyat       : ${price}
+
+Veli        : ${parent_name}
+Öğrenci     : ${student_name}
+Ülke        : ${country}
+Kampüs/Okul : ${campus}
+
+E-posta     : ${from_email}
+Telefon     : ${phone}
+Not         : ${note || '—'}
+
+Sipariş Tar.: ${order_date}
+============================================`.trim()
+
+    const autoText = `Sayın ${parent_name},\n\n${student_name} için ${pack_name} başvurunuz başarıyla alınmıştır. En kısa sürede sizinle iletişime geçeceğiz.\n\nSipariş özeti:\nPaket: ${pack_name}\nFiyat: ${price}\nÖğrenci: ${student_name}\nKampüs: ${campus}\n\nSorular için: info@engpublish.com\n\nENG Publish`
+    const autoHtml = buildAutoResponderHtml({ parent_name, student_name, pack_name, price, campus })
+
+    // Send both emails, wait for both to settle (never crash on individual failure)
+    const [internalResult, autoResult] = await Promise.allSettled([
+      transporter.sendMail({
+        from: '"ENG Publish" <info@engpublish.com>',
+        to: 'info@engpublish.com',
+        replyTo: from_email,
+        subject: `Yeni Sipariş: ${pack_name} — ${student_name}`,
+        text: internalText,
+      }),
+      transporter.sendMail({
+        from: '"ENG Publish" <info@engpublish.com>',
+        to: from_email,
+        subject: `Başvurunuz Alındı — ${pack_name}`,
+        text: autoText,
+        html: autoHtml,
+      }),
+    ])
+
+    if (internalResult.status === 'rejected') {
+      console.error('Internal mail failed:', internalResult.reason?.message)
+    }
+    if (autoResult.status === 'rejected') {
+      console.error('Auto-responder failed:', autoResult.reason?.message)
+    }
+
+    // Success as long as the internal notification went through
+    if (internalResult.status === 'fulfilled') {
+      return res.status(200).json({ ok: true, autoResponder: autoResult.status === 'fulfilled' })
+    }
+
+    return res.status(500).json({ ok: false, error: 'mail_failed' })
   } catch (err) {
-    console.error('Auto-responder failed (non-critical):', err.message)
+    console.error('Unhandled error in send-order:', err)
+    return res.status(500).json({ ok: false, error: 'internal_error' })
   }
 }
 
