@@ -2129,6 +2129,26 @@ a  { color: var(--navy-mid); text-decoration: none; }
   letter-spacing: .04em;
   text-transform: uppercase;
 }
+.pricing-eylul .pricing-amount { color: #8B6200; }
+.pricing-eylul { background: #FFF8ED; border-color: #F0C66A; }
+.pricing-eylul-msg {
+  margin-top: 8px;
+  font-size: 11.5px;
+  color: #8B6200;
+  background: #FFF8ED;
+  border: 1px solid #F0C66A;
+  border-radius: var(--r-sm);
+  padding: 7px 12px;
+  display: flex;
+  align-items: flex-start;
+  gap: 5px;
+}
+/* ── ProRef inside ClassPackInfo ─────────────── */
+.class-pack-info-proref {
+  border-top: 1px solid var(--border-light);
+  padding: 18px 20px;
+  background: rgba(27,61,42,.025);
+}
 
 /* ── Logolar2 mobile auto-scroll ─────────────── */
 @keyframes logolar2Scroll {

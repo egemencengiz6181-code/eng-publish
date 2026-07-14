@@ -12,17 +12,18 @@ function useLang() {
 /* ─── Pricing Data ────────────────────────────── */
 // Temmuz = former "Haziran" prices | Ağustos = former "Temmuz-Ağustos" prices
 const packPrices = {
-  'eyfs-junior': { temmuz: '₺75.739,70', agustos: '₺79.726,00' },
-  'eyfs-1':      { temmuz: '₺75.739,70', agustos: '₺79.726,00' },
-  'eyfs-2':      { temmuz: '₺75.739,70', agustos: '₺79.726,00' },
-  'year-1':      { temmuz: '₺89.794,50', agustos: '₺92.787,65' },
-  'year-2':      { temmuz: '₺80.392,50', agustos: '₺83.072,25' },
-  'year-3':      { temmuz: '₺81.019,50', agustos: '₺83.720,15' },
-  'year-4':      { temmuz: '₺90.721,50', agustos: '₺93.745,55' },
-  'year-5':      { temmuz: '₺95.340,00', agustos: '₺98.518,00' },
-  'year-6':      { temmuz: '₺95.340,00', agustos: '₺98.518,00' },
-  'year-7':      { temmuz: '₺95.340,00', agustos: '₺98.518,00' },
-  'year-8':      { temmuz: '₺95.340,00', agustos: '₺98.518,00' },
+  'eyfs-junior': { temmuz: '₺75.739,70', agustos: '₺79.726,00', eylul: '₺87.698,60' },
+  'eyfs-1':      { temmuz: '₺75.739,70', agustos: '₺79.726,00', eylul: '₺87.698,60' },
+  'eyfs-2':      { temmuz: '₺75.739,70', agustos: '₺79.726,00', eylul: '₺87.698,60' },
+  'year-1':      { temmuz: '₺89.794,50', agustos: '₺92.787,65', eylul: '₺102.066,42' },
+  'year-2':      { temmuz: '₺80.392,50', agustos: '₺83.072,25', eylul: '₺91.379,48' },
+  'year-3':      { temmuz: '₺81.019,50', agustos: '₺83.720,15', eylul: '₺92.092,17' },
+  'year-4':      { temmuz: '₺90.721,50', agustos: '₺93.745,55', eylul: '₺103.120,11' },
+  'year-5':      { temmuz: '₺95.340,00', agustos: '₺98.518,00', eylul: '₺108.369,80' },
+  'year-6':      { temmuz: '₺95.340,00', agustos: '₺98.518,00', eylul: '₺108.369,80' },
+  'year-7':      { temmuz: '₺95.340,00', agustos: '₺98.518,00', eylul: '₺108.369,80' },
+  'year-8':      { temmuz: '₺95.340,00', agustos: '₺98.518,00', eylul: '₺108.369,80' },
+  'prep':        { temmuz: '₺95.340,00', agustos: '₺98.518,00', eylul: '₺108.369,80' },
 }
 
 /* ─── helpers ─────────────────────────────────────── */
@@ -38,6 +39,7 @@ const classIcons = {
   'year-6':      '🎨',
   'year-7':      '⚡',
   'year-8':      '🎓',
+  'prep':        '🌟',
 }
 
 function totalResourceCount(pack) {
@@ -51,8 +53,8 @@ function PricingBox({ packId }) {
   const t = useLang()
   const prices = packPrices[packId]
   if (!prices) return null
-  const now = new Date()
-  const currentIsAgustos = now.getMonth() >= 7 // August onwards
+  const month = new Date().getMonth()
+  const current = month < 7 ? 'temmuz' : month === 7 ? 'agustos' : 'eylul'
 
   return (
     <div className="pricing-box fade-up">
@@ -61,17 +63,23 @@ function PricingBox({ packId }) {
         <span className="pricing-box-title">{t.pricingTitle}</span>
       </div>
       <div className="pricing-box-rows">
-        <div className={`pricing-box-row${!currentIsAgustos ? ' pricing-current' : ''}`}>
+        <div className={`pricing-box-row${current === 'temmuz' ? ' pricing-current' : ''}`}>
           <span className="pricing-month">{t.pricingTemmuz}</span>
           <span className="pricing-amount">{prices.temmuz}</span>
-          {!currentIsAgustos && <span className="pricing-badge">{t.currentPrice}</span>}
+          {current === 'temmuz' && <span className="pricing-badge">{t.currentPrice}</span>}
         </div>
-        <div className={`pricing-box-row${currentIsAgustos ? ' pricing-current' : ''}`}>
+        <div className={`pricing-box-row${current === 'agustos' ? ' pricing-current' : ''}`}>
           <span className="pricing-month">{t.pricingAgustos}</span>
           <span className="pricing-amount">{prices.agustos}</span>
-          {currentIsAgustos && <span className="pricing-badge">{t.currentPrice}</span>}
+          {current === 'agustos' && <span className="pricing-badge">{t.currentPrice}</span>}
+        </div>
+        <div className={`pricing-box-row pricing-eylul${current === 'eylul' ? ' pricing-current' : ''}`}>
+          <span className="pricing-month">{t.pricingEylul}</span>
+          <span className="pricing-amount">{prices.eylul}</span>
+          {current === 'eylul' && <span className="pricing-badge">{t.currentPrice}</span>}
         </div>
       </div>
+      <div className="pricing-eylul-msg">{t.eylulWarning}</div>
     </div>
   )
 }
@@ -226,10 +234,24 @@ function Nav({ lang, setLang }) {
 }
 
 /* ─── Hero / Form ─────────────────────────────────── */
+const premiumSchoolsByCountry = {
+  'United Kingdom': ['Eton College', 'Harrow School', 'Winchester College', 'Rugby School', 'Marlborough College'],
+  'Germany': ['Salem International College', 'Strothoff International School', 'Metropolitan School Frankfurt'],
+  'France': ['Lycée International de Saint-Germain-en-Laye', 'American School of Paris', 'Collège International de Lyon'],
+  'Netherlands': ['Amsterdam International Community School', 'International School Haarlem', 'Rotterdam International Secondary School'],
+  'Sweden': ['International School of Stockholm', 'Viktor Rydberg Gymnasium', 'Interskolan Stockholm'],
+  'Switzerland': ['Institut Le Rosey', 'Brillantmont International School', 'Leysin American School in Switzerland'],
+  'Norway': ['Oslo International School', 'Nansen International School', 'Oslo Katedralskole'],
+  'Denmark': ['Copenhagen International School', 'Rygaards International School', 'Birkerød Gymnasium'],
+  'Finland': ['International School of Helsinki', 'Tampere International School', 'Espoo International School'],
+  'Austria': ['Vienna International School', 'American International School Vienna', 'Sir Karl Popper Schule'],
+  'Belgium': ['International School of Brussels', "St. John's International School", 'European School Brussels'],
+}
+
 function HeroSection({ onSubmit }) {
   const t = useLang()
   const [form, setForm] = useState({
-    parentFirst: '', parentLast: '', studentFirst: '', studentLast: '', country: '', campus: ''
+    parentFirst: '', parentLast: '', studentFirst: '', studentLast: '', country: '', campus: '', school: ''
   })
   const [errors, setErrors] = useState({})
 
@@ -240,8 +262,9 @@ function HeroSection({ onSubmit }) {
     const { name, value } = e.target
     setForm(f => {
       const updated = { ...f, [name]: value }
-      // Reset campus when country changes away from Turkey
+      // Reset campus/school when country changes
       if (name === 'country' && value !== 'Türkiye') updated.campus = ''
+      if (name === 'country') updated.school = ''
       return updated
     })
     if (errors[name]) setErrors(ev => ({ ...ev, [name]: '' }))
@@ -341,6 +364,20 @@ function HeroSection({ onSubmit }) {
                 </div>
               )}
             </div>
+            {isOtherCountry && premiumSchoolsByCountry[form.country] && (
+              <>
+                <div className="form-section-label">Premium Schools</div>
+                <div className="form-group">
+                  <label className="form-label">Select School</label>
+                  <select className="form-input form-select" name="school" value={form.school} onChange={handleChange}>
+                    <option value="">— Select school —</option>
+                    {premiumSchoolsByCountry[form.country].map(s => (
+                      <option key={s} value={s}>{s}</option>
+                    ))}
+                  </select>
+                </div>
+              </>
+            )}
             {isTurkey && (
               <>
                 <div className="form-section-label">{t.campus}</div>
@@ -492,7 +529,6 @@ const genelImages = [
 /* ─── Letter from School Management ─────────────────────────── */
 function LetterSection({ packId }) {
   const t = useLang()
-  const isYear = packId && packId.startsWith('year-')
   return (
     <div className="letter-section fade-up">
       <div className="letter-toggle" style={{ cursor: 'default' }}>
@@ -510,12 +546,6 @@ function LetterSection({ packId }) {
         </ul>
         <p>{t.letterP5}</p>
         <p>{t.letterP6}</p>
-        {isYear && (
-          <div className="letter-salford">
-            <p className="letter-salford-title"><strong>{t.letterSalfordTitle}</strong></p>
-            <p>{t.letterSalfordDesc}</p>
-          </div>
-        )}
         <p className="letter-sign"><em>{t.letterSign.split('\n').map((line, i) => <span key={i}>{line}{i === 0 && <br />}</span>)}</em></p>
       </div>
     </div>
@@ -525,15 +555,18 @@ function LetterSection({ packId }) {
 /* ─── Class Pack Information ─────────────────────────────────── */
 function ClassPackInfo({ packId }) {
   const t = useLang()
+  const isYear = packId.startsWith('year-') || packId === 'prep'
   const baseItems = [
-    { title: t.classPackCoding,     desc: t.classPackCodingDesc },
-    { title: t.classPackIDP,        desc: t.classPackIDPDesc },
-    { title: t.classPackAssessment, desc: t.classPackAssessmentDesc },
-    { title: t.classPackAudit,      desc: t.classPackAuditDesc },
-    { title: t.classPackCognitive,  desc: t.classPackCognitiveDesc },
+    { title: t.classPackCoding,      desc: t.classPackCodingDesc },
+    { title: t.classPackIDP,         desc: t.classPackIDPDesc },
+    { title: t.classPackAssessment,  desc: t.classPackAssessmentDesc },
+    { title: t.classPackStudentDev,  desc: t.classPackStudentDevDesc },
+    { title: t.classPackAudit,       desc: t.classPackAuditDesc },
+    { title: t.classPackCognitive,   desc: t.classPackCognitiveDesc },
   ]
-  const turkishItem = { title: t.classPackTurkish, desc: t.classPackTurkishDesc }
-  const items = packId.startsWith('year-') ? [...baseItems, turkishItem] : baseItems
+  const turkishItem  = { title: t.classPackTurkish,    desc: t.classPackTurkishDesc }
+  const salfordItem  = { title: t.classPackSalford,    desc: t.classPackSalfordDesc }
+  const items = isYear ? [...baseItems, turkishItem, salfordItem] : baseItems
   return (
     <div className="class-pack-info fade-up">
       <div className="class-pack-info-header">
@@ -551,24 +584,17 @@ function ClassPackInfo({ packId }) {
           </div>
         ))}
       </div>
-    </div>
-  )
-}
-
-/* ─── ProRef Section ─────────────────────────────────────────── */
-function ProRefSection() {
-  const t = useLang()
-  return (
-    <div className="proref-section fade-up">
-      <div className="proref-inner">
-        <img src="/proref/proref-logo-text.png" alt="Pro/Ref" className="proref-logo" />
-        <div className="proref-content">
-          <div className="proref-label">{t.prorefLabel}</div>
-          <p className="proref-desc">{t.prorefDesc}</p>
-          <a href="https://proref360.com" target="_blank" rel="noopener noreferrer" className="proref-link">
-            {t.prorefLink}
-            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginLeft: 4 }}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          </a>
+      <div className="class-pack-info-proref">
+        <div className="proref-inner">
+          <img src="/proref/proref-logo-text.png" alt="Pro/Ref" className="proref-logo" />
+          <div className="proref-content">
+            <div className="proref-label">{t.prorefLabel}</div>
+            <p className="proref-desc">{t.prorefDesc}</p>
+            <a href="https://proref360.com" target="_blank" rel="noopener noreferrer" className="proref-link">
+              {t.prorefLink}
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginLeft: 4 }}><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            </a>
+          </div>
         </div>
       </div>
     </div>
@@ -729,8 +755,6 @@ function PackDetail({ packId, formData, onBack }) {
             ))}
 
             <ClassPackInfo packId={packId} />
-
-            <ProRefSection />
 
             <div className="pack-payment-section fade-up">
               <div className="pack-payment-header">

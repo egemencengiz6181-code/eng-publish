@@ -96,6 +96,10 @@ export const translations = {
     classPackCognitiveDesc: "It comprises a skills-based assessment programme and reporting system designed to evaluate students' reasoning, memory, attention, problem-solving and critical thinking skills.",
     classPackTurkish: 'Turkish Lessons Topic Assessment Test',
     classPackTurkishDesc: "A structured assessment program designed to measure students' understanding and achievement in Turkish language topics. The test evaluates reading comprehension, grammar, vocabulary, writing skills, and topic-based learning outcomes while supporting academic progress monitoring and individualized student development.",
+    classPackStudentDev: 'Student Development & Assessment Platform Pack',
+    classPackStudentDevDesc: "Pro/Ref indirectly benefits students by driving continuous improvement in teacher and staff performance. Feedback from parents, managers, colleagues, and self-assessment pinpoints a teacher's development needs in areas like communication, leadership, and professionalism, and a personalised 'AI Tutor' then supports growth in those specific areas. The result is stronger, more reflective teaching staff and a steadily improving classroom experience for students.",
+    classPackSalford: 'Salford Reading Assessment',
+    classPackSalfordDesc: "The Salford Reading Assessment is a standardised test that measures a student's reading accuracy and reading age. Students read short passages of gradually increasing difficulty, and the test stops once a set error threshold is reached. The results compare the student's reading age to their chronological age, showing their reading level relative to peers.",
 
     // ResourceGroup / PackDetail
     lessonSubject: 'Lesson / Subject',
@@ -123,6 +127,8 @@ export const translations = {
     pricingTitle: 'Pricing',
     pricingTemmuz: 'July',
     pricingAgustos: 'August',
+    pricingEylul: 'September',
+    eylulWarning: '⚠ September deliveries may be subject to delays due to stock and procurement lead times.',
     currentPrice: 'Current Price',
 
     // Modal
@@ -243,6 +249,10 @@ export const translations = {
     classPackCognitiveDesc: 'Öğrencilerin akıl yürütme, bellek, dikkat, problem çözme ve eleştirel düşünme becerilerini değerlendirmek amacıyla tasarlanmış beceri temelli bir değerlendirme programını ve raporlama sistemini kapsamaktadır.',
     classPackTurkish: 'Türkçe Dersleri Konu Değerlendirme Sınavı',
     classPackTurkishDesc: 'Öğrencilerin Türkçe dil konularındaki anlama ve başarı düzeyini ölçmek amacıyla tasarlanmış yapılandırılmış bir değerlendirme programıdır. Sınav; okuduğunu anlama, dilbilgisi, kelime bilgisi, yazma becerileri ve konu temelli öğrenme çıktılarını değerlendirirken akademik ilerlemenin izlenmesini ve bireyselleştirilmiş öğrenci gelişimini destekler.',
+    classPackStudentDev: 'Öğrenci Gelişimi ve Değerlendirme Platformu Paketi',
+    classPackStudentDevDesc: "Pro/Ref, öğretmen ve personel performansını sürekli iyileştirerek dolaylı yoldan öğrencilere fayda sağlar. Veli, yönetici, meslektaş ve öz değerlendirmelerden gelen geri bildirimler, öğretmenin iletişim, liderlik ve profesyonellik gibi alanlardaki gelişim ihtiyaçlarını ortaya koyar; kişiye özel 'AI Tutor' bu alanlardaki gelişimi destekler. Sonuç olarak daha güçlü ve yansıtıcı bir öğretim kadrosu ve sınıf içinde sürekli iyileşen bir öğrenme deneyimi elde edilir.",
+    classPackSalford: 'Salford Okuma Değerlendirmesi',
+    classPackSalfordDesc: 'Salford Okuma Değerlendirmesi, öğrencinin okuma doğruluğunu ve okuma yaşını ölçen standart bir testtir. Öğrenciye zorluk düzeyi kademeli olarak artan kısa metinler okutulur ve belirli bir hata sınırına ulaşıldığında test sonlandırılır. Sonuçlar, öğrencinin okuma yaşını kronolojik yaşıyla karşılaştırarak akranlarına göre düzeyini gösterir.',
 
     // ResourceGroup / PackDetail
     lessonSubject: 'Ders / Konu',
@@ -270,6 +280,8 @@ export const translations = {
     pricingTitle: 'Fiyatlandırma',
     pricingTemmuz: 'Temmuz',
     pricingAgustos: 'Ağustos',
+    pricingEylul: 'Eylül',
+    eylulWarning: '⚠ Eylül teslimatlarında stok ve temin süresi nedeniyle gecikmeler yaşanabilir.',
     currentPrice: 'Güncel Fiyat',
 
     // Modal
