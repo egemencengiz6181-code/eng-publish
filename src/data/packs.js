@@ -357,9 +357,6 @@ export const packs = [
       {
         group: 'Modern Foreign Language',
         items: [
-          { lesson: 'French Book', resources: ['Léo et Théo 1 – Livre de l\'élève ELI'] },
-          { lesson: 'French', resources: ["Cahier d'activités (ELI)"] },
-          { lesson: 'French Reader', resources: ['Mon premier livre de lecture'] },
           {
             lesson: 'Spanish',
             resources: ['Festival 1 – Libro del alumno + Mi Portafolio + Libro de ejercicios (3 Kitap)'],
@@ -465,9 +462,6 @@ export const packs = [
       {
         group: 'Modern Foreign Language',
         items: [
-          { lesson: 'French', resources: ["Léo et Théo 2 – Livre de l'élève (ELI)"] },
-          { lesson: 'French', resources: ["Léo et Théo 2 Cahier d'activités (ELI)"] },
-          { lesson: 'French Reading Book', resources: ['Toc Toc ! Tu veux une histoire ?'] },
           {
             lesson: 'Spanish',
             resources: ['Festival 2 – Libro del alumno + Mi Portafolio + Libro de ejercicios (3 Kitap)'],
@@ -582,9 +576,6 @@ export const packs = [
       {
         group: 'Modern Foreign Language',
         items: [
-          { lesson: 'French', resources: ["Jus d'Orange A1.1 – Méthode de Français"] },
-          { lesson: 'French', resources: ["Cahier d'activités (CLE International)"] },
-          { lesson: 'French Reader', resources: ['Maël et Théo découvrent Paris'] },
           {
             lesson: 'Spanish',
             resources: ['ERA-ELE A1.1 – Libro del alumno + Libro de ejercicios (2 Kitap)'],
@@ -671,12 +662,6 @@ export const packs = [
       {
         group: 'Modern Foreign Language',
         items: [
-          { lesson: 'French', resources: ["Jus d'Orange 2 – Méthode de Français (CLE)"] },
-          {
-            lesson: 'French',
-            resources: ["Nouveau Jus d'orange 2:– Cahier d'activités (CLE International)"],
-          },
-          { lesson: 'French Reader', resources: ['Sami a Paris'] },
           {
             lesson: 'Spanish',
             resources: ['ERA-ELE A1.2 – Libro del alumno + Libro de ejercicios (2 Kitap)'],
@@ -763,9 +748,6 @@ export const packs = [
       {
         group: 'Modern Foreign Language',
         items: [
-          { lesson: 'French', resources: ["EXPLORE 1 Livre d'eleve"] },
-          { lesson: 'French', resources: ["EXPLORE 1 cahier d'activites"] },
-          { lesson: 'French Reader', resources: ['Je t\'aime Paris'] },
           {
             lesson: 'Spanish',
             resources: ['ERA-ELE A2.1 – Libro del alumno + Libro de ejercicios (2 Kitap)'],
@@ -852,9 +834,6 @@ export const packs = [
       {
         group: 'Modern Foreign Language',
         items: [
-          { lesson: 'French', resources: ["EXPLORE 2 Livre d'eleve"] },
-          { lesson: 'French', resources: ["EXPLORE 2 cahier d'activites"] },
-          { lesson: 'French Reader', resources: ['Le Petit Prince'] },
           {
             lesson: 'Spanish',
             resources: ['Conectando Libro De Alumno Y Ejercicos A1.2 Lara Kitap-ERADİL'],
