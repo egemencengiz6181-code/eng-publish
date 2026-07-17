@@ -134,6 +134,7 @@ export const translations = {
     // Modal
     orderDetails: 'Order Details',
     modalPaymentDesc: "Transfer the total amount using your child's full name as the reference, then submit your contact details below.",
+    digitalPaymentNotice: 'Customers wishing to make remote digital payments can contact +90 549 906 52 23',
     emailAddress: 'Email Address',
     phoneNumber: 'Phone Number',
     note: 'Note',
@@ -287,6 +288,7 @@ export const translations = {
     // Modal
     orderDetails: 'Sipariş Detayları',
     modalPaymentDesc: "Toplam tutarı çocuğunuzun tam adını açıklama olarak kullanarak transfer edin, ardından iletişim bilgilerinizi aşağıya girin.",
+    digitalPaymentNotice: 'Dijital/kartla uzaktan ödeme yapmak isteyen müşterilerimiz +90 549 906 52 23 numarası ile iletişime geçebilirler',
     emailAddress: 'E-posta Adresi',
     phoneNumber: 'Telefon Numarası',
     note: 'Not',

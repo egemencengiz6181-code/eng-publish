@@ -737,6 +737,13 @@ function PaymentModal({ pack, formData, onClose }) {
               </div>
             </div>
 
+            <div className="modal-digital-payment-notice">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" style={{ flexShrink: 0, marginTop: 2 }}>
+                <circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>
+              </svg>
+              <span>{t.digitalPaymentNotice}</span>
+            </div>
+
             <p className="modal-desc">{t.modalPaymentDesc}</p>
 
             <form className="modal-contact-form" onSubmit={handleSubmit} noValidate>
