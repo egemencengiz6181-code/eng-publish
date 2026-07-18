@@ -2,6 +2,19 @@ import { useState, createContext, useContext } from 'react'
 import { packs } from './data/packs'
 import { translations } from './translations'
 
+/* ─── Legal Pages ────────────────────────────── */
+import MesafeliSatisSozlesmesi from './pages/legal/MesafeliSatisSozlesmesi'
+import KVKKAydinlatma from './pages/legal/KVKKAydinlatma'
+import GizlilikPolitikasi from './pages/legal/GizlilikPolitikasi'
+import IptalIadeKosullari from './pages/legal/IptalIadeKosullari'
+import TeslimatKargoKosullari from './pages/legal/TeslimatKargoKosullari'
+
+/* ─── Payment Pages ──────────────────────────── */
+import PaymentPage from './pages/payment/PaymentPage'
+import SecureVerification from './pages/payment/SecureVerification'
+import OrderSuccess from './pages/payment/OrderSuccess'
+import PaymentFailed from './pages/payment/PaymentFailed'
+
 /* ─── Language Context ────────────────────────── */
 const LangContext = createContext('en')
 function useLang() {
@@ -886,7 +899,7 @@ function PackDetail({ packId, formData, onBack }) {
 }
 
 /* ─── Footer ──────────────────────────────────────── */
-function Footer() {
+function Footer({ onNavigate }) {
   const t = useLang()
   return (
     <footer className="footer">
@@ -906,6 +919,27 @@ function Footer() {
             <div className="footer-deadline-sub">{t.foreignLangFooter}</div>
           </div>
         </div>
+      </div>
+      <div className="footer-legal-links">
+        <button onClick={() => onNavigate('mesafeli-satis')} className="footer-legal-link">
+          {t.mesafeliSatis || 'Mesafeli Satış Sözleşmesi'}
+        </button>
+        <span className="footer-legal-sep">|</span>
+        <button onClick={() => onNavigate('kvkk')} className="footer-legal-link">
+          {t.kvkk || 'KVKK Aydınlatma Metni'}
+        </button>
+        <span className="footer-legal-sep">|</span>
+        <button onClick={() => onNavigate('gizlilik')} className="footer-legal-link">
+          {t.gizlilik || 'Gizlilik ve Güvenlik'}
+        </button>
+        <span className="footer-legal-sep">|</span>
+        <button onClick={() => onNavigate('iptal-iade')} className="footer-legal-link">
+          {t.iptalIade || 'İptal ve İade'}
+        </button>
+        <span className="footer-legal-sep">|</span>
+        <button onClick={() => onNavigate('teslimat')} className="footer-legal-link">
+          {t.teslimat || 'Teslimat Koşulları'}
+        </button>
       </div>
       <div className="footer-bottom">
         <span className="footer-copy">{t.allRightsReserved}</span>
@@ -950,6 +984,220 @@ export default function App() {
     setCart(c => c.filter(i => i.id !== id))
   }
 
+  function handleNavigate(page) {
+    setStep(page)
+    setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 50)
+  }
+
+  // Render legal pages
+  if (step === 'mesafeli-satis') {
+    return (
+      <LangContext.Provider value={lang}>
+        <div>
+          <div className="top-compact">
+            <TopBar />
+            <DeadlineBanner />
+          </div>
+          <Nav lang={lang} setLang={setLang} />
+          <MesafeliSatisSozlesmesi />
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <button className="btn-secondary" onClick={() => handleBack('form')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Ana Sayfaya Dön
+            </button>
+          </div>
+          <ParallaxStrip />
+          <Footer onNavigate={handleNavigate} />
+        </div>
+      </LangContext.Provider>
+    )
+  }
+
+  if (step === 'kvkk') {
+    return (
+      <LangContext.Provider value={lang}>
+        <div>
+          <div className="top-compact">
+            <TopBar />
+            <DeadlineBanner />
+          </div>
+          <Nav lang={lang} setLang={setLang} />
+          <KVKKAydinlatma />
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <button className="btn-secondary" onClick={() => handleBack('form')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Ana Sayfaya Dön
+            </button>
+          </div>
+          <ParallaxStrip />
+          <Footer onNavigate={handleNavigate} />
+        </div>
+      </LangContext.Provider>
+    )
+  }
+
+  if (step === 'gizlilik') {
+    return (
+      <LangContext.Provider value={lang}>
+        <div>
+          <div className="top-compact">
+            <TopBar />
+            <DeadlineBanner />
+          </div>
+          <Nav lang={lang} setLang={setLang} />
+          <GizlilikPolitikasi />
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <button className="btn-secondary" onClick={() => handleBack('form')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Ana Sayfaya Dön
+            </button>
+          </div>
+          <ParallaxStrip />
+          <Footer onNavigate={handleNavigate} />
+        </div>
+      </LangContext.Provider>
+    )
+  }
+
+  if (step === 'iptal-iade') {
+    return (
+      <LangContext.Provider value={lang}>
+        <div>
+          <div className="top-compact">
+            <TopBar />
+            <DeadlineBanner />
+          </div>
+          <Nav lang={lang} setLang={setLang} />
+          <IptalIadeKosullari />
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <button className="btn-secondary" onClick={() => handleBack('form')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Ana Sayfaya Dön
+            </button>
+          </div>
+          <ParallaxStrip />
+          <Footer onNavigate={handleNavigate} />
+        </div>
+      </LangContext.Provider>
+    )
+  }
+
+  if (step === 'teslimat') {
+    return (
+      <LangContext.Provider value={lang}>
+        <div>
+          <div className="top-compact">
+            <TopBar />
+            <DeadlineBanner />
+          </div>
+          <Nav lang={lang} setLang={setLang} />
+          <TeslimatKargoKosullari />
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <button className="btn-secondary" onClick={() => handleBack('form')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Ana Sayfaya Dön
+            </button>
+          </div>
+          <ParallaxStrip />
+          <Footer onNavigate={handleNavigate} />
+        </div>
+      </LangContext.Provider>
+    )
+  }
+
+  // Payment pages
+  if (step === 'odeme') {
+    return (
+      <LangContext.Provider value={lang}>
+        <div>
+          <div className="top-compact">
+            <TopBar />
+            <DeadlineBanner />
+          </div>
+          <Nav lang={lang} setLang={setLang} />
+          <PaymentPage />
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <button className="btn-secondary" onClick={() => handleBack('form')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Ana Sayfaya Dön
+            </button>
+          </div>
+          <ParallaxStrip />
+          <Footer onNavigate={handleNavigate} />
+        </div>
+      </LangContext.Provider>
+    )
+  }
+
+  if (step === 'odeme-dogrulama') {
+    return (
+      <LangContext.Provider value={lang}>
+        <div>
+          <div className="top-compact">
+            <TopBar />
+            <DeadlineBanner />
+          </div>
+          <Nav lang={lang} setLang={setLang} />
+          <SecureVerification />
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <button className="btn-secondary" onClick={() => handleBack('form')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Ana Sayfaya Dön
+            </button>
+          </div>
+          <ParallaxStrip />
+          <Footer onNavigate={handleNavigate} />
+        </div>
+      </LangContext.Provider>
+    )
+  }
+
+  if (step === 'odeme-basarili') {
+    return (
+      <LangContext.Provider value={lang}>
+        <div>
+          <div className="top-compact">
+            <TopBar />
+            <DeadlineBanner />
+          </div>
+          <Nav lang={lang} setLang={setLang} />
+          <OrderSuccess />
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <button className="btn-secondary" onClick={() => handleBack('form')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Ana Sayfaya Dön
+            </button>
+          </div>
+          <ParallaxStrip />
+          <Footer onNavigate={handleNavigate} />
+        </div>
+      </LangContext.Provider>
+    )
+  }
+
+  if (step === 'odeme-basarisiz') {
+    return (
+      <LangContext.Provider value={lang}>
+        <div>
+          <div className="top-compact">
+            <TopBar />
+            <DeadlineBanner />
+          </div>
+          <Nav lang={lang} setLang={setLang} />
+          <PaymentFailed />
+          <div style={{ textAlign: 'center', padding: '40px 0' }}>
+            <button className="btn-secondary" onClick={() => handleBack('form')}>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              Ana Sayfaya Dön
+            </button>
+          </div>
+          <ParallaxStrip />
+          <Footer onNavigate={handleNavigate} />
+        </div>
+      </LangContext.Provider>
+    )
+  }
+
   return (
     <LangContext.Provider value={lang}>
       <div>
@@ -980,7 +1228,7 @@ export default function App() {
         )}
 
         <ParallaxStrip />
-        <Footer />
+        <Footer onNavigate={handleNavigate} />
       </div>
     </LangContext.Provider>
   )
