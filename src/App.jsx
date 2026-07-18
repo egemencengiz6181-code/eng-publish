@@ -217,12 +217,12 @@ function DeadlineBanner() {
 }
 
 /* ─── Nav ─────────────────────────────────────────── */
-function Nav({ lang, setLang }) {
+function Nav({ lang, setLang, onNavigate }) {
   const t = useLang()
   return (
     <nav className="nav">
       <div className="nav-inner">
-        <a href="#" className="nav-logo">
+        <a href="#" className="nav-logo" onClick={(e) => { e.preventDefault(); onNavigate && onNavigate('form'); }}>
           <div>
             <div className="nav-logo-text">ENG Publish</div>
             <div className="nav-logo-sub">{t.schoolResourcePacks}</div>
@@ -941,6 +941,24 @@ function Footer({ onNavigate }) {
           {t.teslimat || 'Teslimat Koşulları'}
         </button>
       </div>
+      <div className="footer-test-links">
+        <span style={{ fontSize: '11px', color: 'rgba(255,255,255,.4)', marginRight: '12px' }}>🧪 Test Pages:</span>
+        <button onClick={() => onNavigate('odeme')} className="footer-legal-link">
+          💳 Ödeme
+        </button>
+        <span className="footer-legal-sep">|</span>
+        <button onClick={() => onNavigate('odeme-dogrulama')} className="footer-legal-link">
+          🔒 3D Secure
+        </button>
+        <span className="footer-legal-sep">|</span>
+        <button onClick={() => onNavigate('odeme-basarili')} className="footer-legal-link">
+          ✅ Başarılı
+        </button>
+        <span className="footer-legal-sep">|</span>
+        <button onClick={() => onNavigate('odeme-basarisiz')} className="footer-legal-link">
+          ❌ Başarısız
+        </button>
+      </div>
       <div className="footer-bottom">
         <span className="footer-copy">{t.allRightsReserved}</span>
         <span className="footer-copy">{t.footerSub}</span>
@@ -998,7 +1016,7 @@ export default function App() {
             <TopBar />
             <DeadlineBanner />
           </div>
-          <Nav lang={lang} setLang={setLang} />
+          <Nav lang={lang} setLang={setLang} onNavigate={handleNavigate} />
           <MesafeliSatisSozlesmesi />
           <div style={{ textAlign: 'center', padding: '40px 0' }}>
             <button className="btn-secondary" onClick={() => handleBack('form')}>
@@ -1021,7 +1039,7 @@ export default function App() {
             <TopBar />
             <DeadlineBanner />
           </div>
-          <Nav lang={lang} setLang={setLang} />
+          <Nav lang={lang} setLang={setLang} onNavigate={handleNavigate} />
           <KVKKAydinlatma />
           <div style={{ textAlign: 'center', padding: '40px 0' }}>
             <button className="btn-secondary" onClick={() => handleBack('form')}>
@@ -1044,7 +1062,7 @@ export default function App() {
             <TopBar />
             <DeadlineBanner />
           </div>
-          <Nav lang={lang} setLang={setLang} />
+          <Nav lang={lang} setLang={setLang} onNavigate={handleNavigate} />
           <GizlilikPolitikasi />
           <div style={{ textAlign: 'center', padding: '40px 0' }}>
             <button className="btn-secondary" onClick={() => handleBack('form')}>
@@ -1067,7 +1085,7 @@ export default function App() {
             <TopBar />
             <DeadlineBanner />
           </div>
-          <Nav lang={lang} setLang={setLang} />
+          <Nav lang={lang} setLang={setLang} onNavigate={handleNavigate} />
           <IptalIadeKosullari />
           <div style={{ textAlign: 'center', padding: '40px 0' }}>
             <button className="btn-secondary" onClick={() => handleBack('form')}>
@@ -1090,7 +1108,7 @@ export default function App() {
             <TopBar />
             <DeadlineBanner />
           </div>
-          <Nav lang={lang} setLang={setLang} />
+          <Nav lang={lang} setLang={setLang} onNavigate={handleNavigate} />
           <TeslimatKargoKosullari />
           <div style={{ textAlign: 'center', padding: '40px 0' }}>
             <button className="btn-secondary" onClick={() => handleBack('form')}>
@@ -1114,7 +1132,7 @@ export default function App() {
             <TopBar />
             <DeadlineBanner />
           </div>
-          <Nav lang={lang} setLang={setLang} />
+          <Nav lang={lang} setLang={setLang} onNavigate={handleNavigate} />
           <PaymentPage />
           <div style={{ textAlign: 'center', padding: '40px 0' }}>
             <button className="btn-secondary" onClick={() => handleBack('form')}>
@@ -1137,7 +1155,7 @@ export default function App() {
             <TopBar />
             <DeadlineBanner />
           </div>
-          <Nav lang={lang} setLang={setLang} />
+          <Nav lang={lang} setLang={setLang} onNavigate={handleNavigate} />
           <SecureVerification />
           <div style={{ textAlign: 'center', padding: '40px 0' }}>
             <button className="btn-secondary" onClick={() => handleBack('form')}>
@@ -1160,7 +1178,7 @@ export default function App() {
             <TopBar />
             <DeadlineBanner />
           </div>
-          <Nav lang={lang} setLang={setLang} />
+          <Nav lang={lang} setLang={setLang} onNavigate={handleNavigate} />
           <OrderSuccess />
           <div style={{ textAlign: 'center', padding: '40px 0' }}>
             <button className="btn-secondary" onClick={() => handleBack('form')}>
@@ -1183,7 +1201,7 @@ export default function App() {
             <TopBar />
             <DeadlineBanner />
           </div>
-          <Nav lang={lang} setLang={setLang} />
+          <Nav lang={lang} setLang={setLang} onNavigate={handleNavigate} />
           <PaymentFailed />
           <div style={{ textAlign: 'center', padding: '40px 0' }}>
             <button className="btn-secondary" onClick={() => handleBack('form')}>
@@ -1205,7 +1223,7 @@ export default function App() {
           <TopBar />
           <DeadlineBanner />
         </div>
-        <Nav lang={lang} setLang={setLang} />
+        <Nav lang={lang} setLang={setLang} onNavigate={handleNavigate} />
         <Logolar2Strip />
 
         {step !== 'form' && formData && (
