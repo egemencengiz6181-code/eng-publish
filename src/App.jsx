@@ -453,6 +453,8 @@ function StudentBar({ formData, onEdit }) {
 /* ─── Class Selection ─────────────────────────────── */
 function ClassSelection({ formData, onSelect, onBack }) {
   const t = useLang()
+  const [showInfoModal, setShowInfoModal] = useState(true)
+  
   return (
     <section className="section class-selection-section">
       <div className="container">
@@ -489,6 +491,72 @@ function ClassSelection({ formData, onSelect, onBack }) {
           </button>
         </div>
       </div>
+
+      {/* Ödeme Bilgilendirme Modal */}
+      {showInfoModal && (
+        <>
+          <div className="modal-overlay" onClick={() => setShowInfoModal(false)} />
+          <div className="modal" role="dialog" aria-modal="true" style={{ maxWidth: '600px' }}>
+            <div className="modal-header">
+              <h2 className="modal-title">Ödeme Bilgilendirmesi</h2>
+              <button className="modal-close" onClick={() => setShowInfoModal(false)} aria-label="Close">×</button>
+            </div>
+            <div style={{ padding: '24px 32px 32px' }}>
+              <div style={{
+                fontSize: '15px',
+                fontWeight: '600',
+                color: '#1B3D2A',
+                marginBottom: '14px',
+                fontFamily: 'var(--font-serif)'
+              }}>
+                Değerli Velilerimiz,
+              </div>
+              <div style={{
+                fontSize: '14.5px',
+                lineHeight: '1.7',
+                color: '#2d3748',
+                marginBottom: '14px'
+              }}>
+                2026–2027 eğitim öğretim yılında kullanılacak kaynak kitaplar ve dijital içeriklerle ilgili olarak, 
+                ENG Publish ile yapılan görüşmelerde, ENG Publish velilerimize aşağıdaki ödeme seçeneklerini 
+                sunacağını beyan etmiştir:
+              </div>
+              <ul style={{
+                fontSize: '14.5px',
+                lineHeight: '1.8',
+                color: '#2d3748',
+                paddingLeft: '20px',
+                marginBottom: '14px'
+              }}>
+                <li style={{ marginBottom: '8px' }}>
+                  Peşin veya havale/EFT ödemelerinde <strong>%10 indirim</strong> uygulanacaktır.
+                </li>
+                <li style={{ marginBottom: '8px' }}>
+                  Mevcut rakamlar üzerinden <strong>4 taksite kadar</strong> ödeme yapılabilecektir.
+                </li>
+                <li>
+                  6 taksit seçeneğinde ise <strong>%10 fiyat farkı</strong> uygulanacaktır.
+                </li>
+              </ul>
+              <div style={{
+                fontSize: '14px',
+                color: '#495057',
+                fontStyle: 'italic',
+                marginTop: '12px'
+              }}>
+                Bilgilerinize sunarız.
+              </div>
+              <button 
+                className="btn-primary" 
+                onClick={() => setShowInfoModal(false)} 
+                style={{ width: '100%', marginTop: '20px' }}
+              >
+                Anladım
+              </button>
+            </div>
+          </div>
+        </>
+      )}
     </section>
   )
 }

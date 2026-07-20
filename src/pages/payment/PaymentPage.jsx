@@ -3,6 +3,61 @@ export default function PaymentPage() {
     <div className="payment-page">
       <div className="container" style={{ maxWidth: 800, paddingTop: 80, paddingBottom: 80 }}>
         <div className="payment-card">
+          {/* Ödeme Bilgilendirme Mesajı */}
+          <div style={{
+            background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
+            border: '1.5px solid #dee2e6',
+            borderRadius: '12px',
+            padding: '24px 28px',
+            marginBottom: '32px',
+            boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+          }}>
+            <div style={{
+              fontSize: '16px',
+              fontWeight: '600',
+              color: '#1B3D2A',
+              marginBottom: '14px',
+              fontFamily: 'var(--font-serif)'
+            }}>
+              Değerli Velilerimiz,
+            </div>
+            <div style={{
+              fontSize: '14.5px',
+              lineHeight: '1.7',
+              color: '#2d3748',
+              marginBottom: '14px'
+            }}>
+              2026–2027 eğitim öğretim yılında kullanılacak kaynak kitaplar ve dijital içeriklerle ilgili olarak, 
+              ENG Publish ile yapılan görüşmelerde, ENG Publish velilerimize aşağıdaki ödeme seçeneklerini 
+              sunacağını beyan etmiştir:
+            </div>
+            <ul style={{
+              fontSize: '14.5px',
+              lineHeight: '1.8',
+              color: '#2d3748',
+              paddingLeft: '20px',
+              marginBottom: '14px'
+            }}>
+              <li style={{ marginBottom: '8px' }}>
+                Peşin veya havale/EFT ödemelerinde <strong>%10 indirim</strong> uygulanacaktır.
+              </li>
+              <li style={{ marginBottom: '8px' }}>
+                Mevcut rakamlar üzerinden <strong>4 taksite kadar</strong> ödeme yapılabilecektir.
+              </li>
+              <li>
+                6 taksit seçeneğinde ise <strong>%10 fiyat farkı</strong> uygulanacaktır.
+              </li>
+            </ul>
+            <div style={{
+              fontSize: '14px',
+              color: '#495057',
+              fontStyle: 'italic',
+              marginTop: '12px'
+            }}>
+              Bilgilerinize sunarız.
+            </div>
+          </div>
+
           <div className="payment-header">
             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
               <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/>
