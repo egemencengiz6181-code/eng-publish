@@ -69,6 +69,14 @@ function PricingBox({ packId }) {
   const month = new Date().getMonth()
   const current = month < 7 ? 'temmuz' : month === 7 ? 'agustos' : 'eylul'
 
+  // %10 indirimli fiyat hesaplama fonksiyonu
+  const calculateDiscount = (priceStr) => {
+    const numStr = priceStr.replace('₺', '').replace(/\./g, '').replace(',', '.')
+    const num = parseFloat(numStr)
+    const discounted = num * 0.9
+    return '₺' + discounted.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.')
+  }
+
   return (
     <div className="pricing-box fade-up">
       <div className="pricing-box-header">
@@ -78,17 +86,32 @@ function PricingBox({ packId }) {
       <div className="pricing-box-rows">
         <div className={`pricing-box-row${current === 'temmuz' ? ' pricing-current' : ''}`}>
           <span className="pricing-month">{t.pricingTemmuz}</span>
-          <span className="pricing-amount">{prices.temmuz}</span>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
+            <span className="pricing-amount">{prices.temmuz}</span>
+            <span style={{ fontSize: '12px', color: '#52A873', fontWeight: 600 }}>
+              {calculateDiscount(prices.temmuz)} (Peşin/Havale)
+            </span>
+          </div>
           {current === 'temmuz' && <span className="pricing-badge">{t.currentPrice}</span>}
         </div>
         <div className={`pricing-box-row${current === 'agustos' ? ' pricing-current' : ''}`}>
           <span className="pricing-month">{t.pricingAgustos}</span>
-          <span className="pricing-amount">{prices.agustos}</span>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
+            <span className="pricing-amount">{prices.agustos}</span>
+            <span style={{ fontSize: '12px', color: '#52A873', fontWeight: 600 }}>
+              {calculateDiscount(prices.agustos)} (Peşin/Havale)
+            </span>
+          </div>
           {current === 'agustos' && <span className="pricing-badge">{t.currentPrice}</span>}
         </div>
         <div className={`pricing-box-row pricing-eylul${current === 'eylul' ? ' pricing-current' : ''}`}>
           <span className="pricing-month">{t.pricingEylul}</span>
-          <span className="pricing-amount">{prices.eylul}</span>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end', gap: '4px' }}>
+            <span className="pricing-amount">{prices.eylul}</span>
+            <span style={{ fontSize: '12px', color: '#52A873', fontWeight: 600 }}>
+              {calculateDiscount(prices.eylul)} (Peşin/Havale)
+            </span>
+          </div>
           {current === 'eylul' && <span className="pricing-badge">{t.currentPrice}</span>}
         </div>
       </div>
