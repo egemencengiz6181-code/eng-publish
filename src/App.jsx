@@ -797,6 +797,61 @@ function PaymentModal({ pack, formData, onClose }) {
               <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
             </div>
 
+            {/* Ödeme Bilgilendirme Mesajı */}
+            <div style={{
+              background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
+              border: '1.5px solid #dee2e6',
+              borderRadius: '12px',
+              padding: '20px 24px',
+              margin: '0 32px 24px 32px',
+              boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+            }}>
+              <div style={{
+                fontSize: '15px',
+                fontWeight: '600',
+                color: '#1B3D2A',
+                marginBottom: '12px',
+                fontFamily: 'var(--font-serif)'
+              }}>
+                Değerli Velilerimiz,
+              </div>
+              <div style={{
+                fontSize: '14px',
+                lineHeight: '1.7',
+                color: '#2d3748',
+                marginBottom: '12px'
+              }}>
+                2026–2027 eğitim öğretim yılında kullanılacak kaynak kitaplar ve dijital içeriklerle ilgili olarak, 
+                ENG Publish ile yapılan görüşmelerde, ENG Publish velilerimize aşağıdaki ödeme seçeneklerini 
+                sunacağını beyan etmiştir:
+              </div>
+              <ul style={{
+                fontSize: '14px',
+                lineHeight: '1.8',
+                color: '#2d3748',
+                paddingLeft: '20px',
+                marginBottom: '12px'
+              }}>
+                <li style={{ marginBottom: '6px' }}>
+                  Peşin veya havale/EFT ödemelerinde <strong>%10 indirim</strong> uygulanacaktır.
+                </li>
+                <li style={{ marginBottom: '6px' }}>
+                  Mevcut rakamlar üzerinden <strong>4 taksite kadar</strong> ödeme yapılabilecektir.
+                </li>
+                <li>
+                  6 taksit seçeneğinde ise <strong>%10 fiyat farkı</strong> uygulanacaktır.
+                </li>
+              </ul>
+              <div style={{
+                fontSize: '13.5px',
+                color: '#495057',
+                fontStyle: 'italic',
+                marginTop: '10px'
+              }}>
+                Bilgilerinize sunarız.
+              </div>
+            </div>
+
             <PricingBox packId={pack.id} />
 
             <div className="modal-payment-box">
