@@ -498,7 +498,7 @@ function ClassSelection({ formData, onSelect, onBack }) {
           <div className="modal-overlay" onClick={() => setShowInfoModal(false)} />
           <div className="modal" role="dialog" aria-modal="true" style={{ maxWidth: '600px' }}>
             <div className="modal-header">
-              <h2 className="modal-title">Ödeme Bilgilendirmesi</h2>
+              <h2 className="modal-title">Ödeme Seçenekleri</h2>
               <button className="modal-close" onClick={() => setShowInfoModal(false)} aria-label="Close">×</button>
             </div>
             <div style={{ padding: '24px 32px 32px' }}>
@@ -515,43 +515,43 @@ function ClassSelection({ formData, onSelect, onBack }) {
                 fontSize: '14.5px',
                 lineHeight: '1.7',
                 color: '#2d3748',
-                marginBottom: '14px'
+                marginBottom: '18px'
               }}>
-                2026–2027 eğitim öğretim yılında kullanılacak kaynak kitaplar ve dijital içeriklerle ilgili olarak, 
-                ENG Publish ile yapılan görüşmelerde, ENG Publish velilerimize aşağıdaki ödeme seçeneklerini 
-                sunacağını beyan etmiştir:
+                ENG Publish olarak, 2026–2027 eğitim öğretim yılı kaynak kitap ve dijital içerik 
+                ödemeleriniz için sizlere aşağıdaki ödeme kolaylıklarını sunuyoruz:
               </div>
               <ul style={{
                 fontSize: '14.5px',
                 lineHeight: '1.8',
                 color: '#2d3748',
                 paddingLeft: '20px',
-                marginBottom: '14px'
+                marginBottom: '18px'
               }}>
                 <li style={{ marginBottom: '8px' }}>
-                  Peşin veya havale/EFT ödemelerinde <strong>%10 indirim</strong> uygulanacaktır.
+                  Peşin veya havale/EFT ödemelerinde <strong>%10 indirim</strong>
                 </li>
                 <li style={{ marginBottom: '8px' }}>
-                  Mevcut rakamlar üzerinden <strong>4 taksite kadar</strong> ödeme yapılabilecektir.
+                  Mevcut fiyatlar üzerinden <strong>4 taksite kadar</strong> ödeme imkanı
                 </li>
                 <li>
-                  6 taksit seçeneğinde ise <strong>%10 fiyat farkı</strong> uygulanacaktır.
+                  6 taksit seçeneğinde <strong>%10 fiyat farkı</strong> uygulanır
                 </li>
               </ul>
               <div style={{
                 fontSize: '14px',
                 color: '#495057',
-                fontStyle: 'italic',
-                marginTop: '12px'
+                borderLeft: '3px solid #1B3D2A',
+                paddingLeft: '12px',
+                marginTop: '16px'
               }}>
-                Bilgilerinize sunarız.
+                Size en uygun ödeme seçeneğini belirleyerek sipariş sürecinize devam edebilirsiniz.
               </div>
               <button 
                 className="btn-primary" 
                 onClick={() => setShowInfoModal(false)} 
                 style={{ width: '100%', marginTop: '20px' }}
               >
-                Anladım
+                Devam Et
               </button>
             </div>
           </div>
@@ -797,58 +797,87 @@ function PaymentModal({ pack, formData, onClose }) {
               <button className="modal-close" onClick={onClose} aria-label="Close">×</button>
             </div>
 
-            {/* Ödeme Bilgilendirme Mesajı */}
+            {/* Ödeme Seçenekleri */}
             <div style={{
-              background: 'linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%)',
+              background: '#f8f9fa',
               border: '1.5px solid #dee2e6',
-              borderRadius: '12px',
-              padding: '20px 24px',
-              margin: '0 32px 24px 32px',
-              boxShadow: '0 2px 8px rgba(0,0,0,0.04)'
+              borderRadius: '10px',
+              padding: '18px 24px',
+              margin: '0 32px 24px 32px'
             }}>
               <div style={{
-                fontSize: '15px',
+                fontSize: '14px',
                 fontWeight: '600',
                 color: '#1B3D2A',
-                marginBottom: '12px',
-                fontFamily: 'var(--font-serif)'
+                marginBottom: '14px',
+                letterSpacing: '0.3px'
               }}>
-                Değerli Velilerimiz,
+                ÖDEME SEÇENEKLERİ
               </div>
               <div style={{
-                fontSize: '14px',
-                lineHeight: '1.7',
-                color: '#2d3748',
-                marginBottom: '12px'
+                display: 'grid',
+                gap: '10px'
               }}>
-                2026–2027 eğitim öğretim yılında kullanılacak kaynak kitaplar ve dijital içeriklerle ilgili olarak, 
-                ENG Publish ile yapılan görüşmelerde, ENG Publish velilerimize aşağıdaki ödeme seçeneklerini 
-                sunacağını beyan etmiştir:
-              </div>
-              <ul style={{
-                fontSize: '14px',
-                lineHeight: '1.8',
-                color: '#2d3748',
-                paddingLeft: '20px',
-                marginBottom: '12px'
-              }}>
-                <li style={{ marginBottom: '6px' }}>
-                  Peşin veya havale/EFT ödemelerinde <strong>%10 indirim</strong> uygulanacaktır.
-                </li>
-                <li style={{ marginBottom: '6px' }}>
-                  Mevcut rakamlar üzerinden <strong>4 taksite kadar</strong> ödeme yapılabilecektir.
-                </li>
-                <li>
-                  6 taksit seçeneğinde ise <strong>%10 fiyat farkı</strong> uygulanacaktır.
-                </li>
-              </ul>
-              <div style={{
-                fontSize: '13.5px',
-                color: '#495057',
-                fontStyle: 'italic',
-                marginTop: '10px'
-              }}>
-                Bilgilerinize sunarız.
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  fontSize: '13.5px',
+                  color: '#2d3748',
+                  padding: '8px 12px',
+                  background: 'white',
+                  borderRadius: '6px',
+                  border: '1px solid #e9ecef'
+                }}>
+                  <span style={{ 
+                    width: '6px', 
+                    height: '6px', 
+                    background: '#52A873', 
+                    borderRadius: '50%', 
+                    marginRight: '12px',
+                    flexShrink: 0
+                  }}></span>
+                  <span><strong>Peşin/Havale-EFT ödemelerinde %10 indirim</strong></span>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  fontSize: '13.5px',
+                  color: '#2d3748',
+                  padding: '8px 12px',
+                  background: 'white',
+                  borderRadius: '6px',
+                  border: '1px solid #e9ecef'
+                }}>
+                  <span style={{ 
+                    width: '6px', 
+                    height: '6px', 
+                    background: '#52A873', 
+                    borderRadius: '50%', 
+                    marginRight: '12px',
+                    flexShrink: 0
+                  }}></span>
+                  <span><strong>4 taksite kadar ödeme seçeneği</strong></span>
+                </div>
+                <div style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  fontSize: '13.5px',
+                  color: '#2d3748',
+                  padding: '8px 12px',
+                  background: 'white',
+                  borderRadius: '6px',
+                  border: '1px solid #e9ecef'
+                }}>
+                  <span style={{ 
+                    width: '6px', 
+                    height: '6px', 
+                    background: '#52A873', 
+                    borderRadius: '50%', 
+                    marginRight: '12px',
+                    flexShrink: 0
+                  }}></span>
+                  <span><strong>6 taksitte %10 fiyat farkı</strong></span>
+                </div>
               </div>
             </div>
 
